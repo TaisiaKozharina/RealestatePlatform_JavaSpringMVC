@@ -13,6 +13,7 @@ public class Apartment extends BaseEntity{
     private double size;
     private int rooms;
     private String description;
+    private String photo_url; //URL of image
     //private final boolean isActive;
 
 

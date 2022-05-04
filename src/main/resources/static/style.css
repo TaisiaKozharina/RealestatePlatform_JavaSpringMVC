@@ -1,16 +1,38 @@
+*{
+margin:0;
+padding:0;
+}
+
 footer{
 width:100%;
-position:fixed;
 bottom:0;
+background-color: black;
+color: white;
+text-align: center;
 }
 
 header{
 width:100%;
-/*position:fixed;*/
+background-color: black;
+color: white;
+display: inline-block;
 top:0;
+text-align: center;
+}
+
+.header nav li{
+float: right;
+margin-right: 30px;
 }
 
 .main{
-width: 80%;
+padding-top:10em;
+width: 70%;
 margin: 0 auto; /* Center the DIV horizontally */
+min-height: 100vh;
+}
+
+li a{
+color:white;
+text-decoration: none;
 }

@@ -24,6 +24,7 @@ CREATE TABLE IF NOT EXISTS `apartments` (
     `price` real NOT NULL,
     `size` real NOT NULL,
     `rooms` int NOT NULL,
+    `picture_url` varchar(30),
     `description` varchar(500) DEFAULT NULL,
     `created_at` TIMESTAMP NOT NULL,
     `created_by` varchar(50) NOT NULL,
