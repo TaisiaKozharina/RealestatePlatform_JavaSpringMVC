@@ -1,8 +1,9 @@
 package com.realestate.courseproject.repository;
 
-import com.realestate.courseproject.mappers.ContactRowMapper;
+
 import com.realestate.courseproject.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
@@ -14,7 +15,14 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public class ContactRepo {
+public interface ContactRepo extends CrudRepository<Contact, Integer> {
+
+    //Fetches record according to the status. Return List as there are probably many messages of one type
+    List<Contact> findByStatus(String status);
+
+/*Commented when migrating to Spring Data JPA
+
+import com.realestate.courseproject.mappers.ContactRowMapper;
     private final JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -51,6 +59,6 @@ public class ContactRepo {
                 preparedStatement.setInt(4, contactID);
             }
         });
-    }
+    }*/
 
 }

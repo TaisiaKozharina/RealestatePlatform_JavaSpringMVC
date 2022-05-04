@@ -1,3 +1,4 @@
+/*
 package com.realestate.courseproject.mappers;
 
 import com.realestate.courseproject.model.Contact;
@@ -8,6 +9,8 @@ import java.sql.SQLException;
 
 public class ContactRowMapper implements RowMapper<Contact> {
 
+*/
+/*    Not needed since using Spring Data JPA, it is all mentioned in the POJOs themselves
     @Override
     public Contact mapRow(ResultSet rs, int rowNum) throws SQLException {
         //business logic for processing(mapping) every individual record
@@ -28,5 +31,7 @@ public class ContactRowMapper implements RowMapper<Contact> {
         }
         contact.setUpdatedBy(rs.getString("UPDATED_BY"));
         return contact;
-    }
+    }*//*
+
 }
+*/

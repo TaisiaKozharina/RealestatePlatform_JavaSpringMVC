@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Page</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+
+    <div class="main">
+        <h3>Registration Form</h3>
+        <div>
+            <ul>
+                <li role="alert" th:each="error : ${#fields.errors('user.*')}" th:text="${error}" />
+            </ul>
+            <form th:action="@{/public/createUser}" method="post" th:object="${user}">
+                <p class="text-uppercase">Personal Details</p>
+                <br/>
+                <input type="text" th:field="*{username}" placeholder="Name"/>
+                <input type="text" th:field="*{mobileNumber}" placeholder="Mobile Number"/>
+                <br/>
+                <input type="text" th:field="*{email}" placeholder="Email"/>
+                <input type="text" th:field="*{confirmEmail}" placeholder="Confirm Email"/>
+                <br/>
+                <input type="password" th:field="*{password}" placeholder="Password"/>
+                <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password"/>
+                <br/>
+                <button>Register</button>
+            </form>
+        </div>
+    </div>
+
+    <div th:replace="header :: header"></div>
+</body>
+</html>

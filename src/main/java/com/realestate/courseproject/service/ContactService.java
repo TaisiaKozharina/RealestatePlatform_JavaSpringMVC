@@ -14,6 +14,7 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -31,39 +32,39 @@ public class ContactService {
         System.out.println("Hey! Contact Service Bean initialized!!!!");
     }
 
-    /**
-     * Save Contact Details into DB
-     * @param contact
-     * @return boolean
-     */
-
     public boolean saveMessageDetails(Contact contact){
         boolean isSaved = false;
         contact.setStatus(GlobalConstants.OPEN);
-        contact.setCreatedBy(GlobalConstants.ANONYMOUS);
-        contact.setCreatedAt(LocalDateTime.now());
+        //contact.setCreatedBy(GlobalConstants.ANONYMOUS); - Don't need since there is AuditAwareImpl
+        //contact.setCreatedAt(LocalDateTime.now());
 
-        int result = contactRepo.saveContactMsg(contact);
-        if(result>0){
+        Contact savedContact = contactRepo.save(contact);
+        if(savedContact != null && savedContact.getContactID()>0){
             //if operation was successful
             isSaved = true;
         }
-       // log.info(contact.toString());
         return isSaved;
     }
 
     public List<Contact> findOpenStatusMessages(){
-        List<Contact> messages = contactRepo.findMessagesByStatus(GlobalConstants.OPEN);
+        List<Contact> messages = contactRepo.findByStatus(GlobalConstants.OPEN);
         return messages;
     }
 
-    public boolean updateMsgStatus(int contactID, String updatedBy){
+    public boolean updateMsgStatus(int contactID){
         boolean isUpdated = false;
-        int result = contactRepo.updateMsgStatus(contactID, GlobalConstants.CLOSED, updatedBy);
-        if(result>0){
-            //if operation is successful
+        Optional<Contact> contact = contactRepo.findById(contactID);
+        contact.ifPresent(contact1 -> {
+            contact1.setStatus(GlobalConstants.CLOSED);
+        });
+        //calling contact.get() because it is optional and we need an actual object of Contact
+        Contact updatedContact = contactRepo.save(contact.get());
+        if(null != updatedContact && updatedContact.getUpdatedBy()!=null) {
+            //if operation was successful
             isUpdated = true;
         }
         return isUpdated;
     }
+
+
 }

@@ -2,6 +2,7 @@ package com.realestate.courseproject.repository;
 
 import com.realestate.courseproject.model.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -9,7 +10,9 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public class ApartmentRepo {
+public interface ApartmentRepo extends CrudRepository<Apartment, Integer> {
+
+    /* Commented when migrating to Spring Data JPA
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -25,6 +28,6 @@ public class ApartmentRepo {
         var rowMapper = BeanPropertyRowMapper.newInstance(Apartment.class);
         return jdbcTemplate.query(sqlQuery, rowMapper);
 
-    }
+    }*/
 
 }

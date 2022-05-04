@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Slf4j
 @Controller
@@ -22,33 +23,6 @@ public class ApartmentController {
     @Autowired
     private ApartmentRepo apartmentRepo;
 
-    /*@GetMapping("/gallery")
-    public String displayApartments(@RequestParam(required = false) boolean flat,
-                                    @RequestParam(required = false) boolean house,
-                                    @RequestParam(required = false) boolean mansion,
-                                    Model model) {
-        model.addAttribute("flat", flat);
-        model.addAttribute("house", house);
-        model.addAttribute("mansion", mansion);
-
-
-        List<Apartment> apartments = Arrays.asList(
-                new Apartment(Apartment.Type.FLAT, "Deglava 75", 32000.00, 45),
-                new Apartment(Apartment.Type.HOUSE, "Aspazijas 44", 111000.00, 90.5),
-                new Apartment(Apartment.Type.FLAT, "Marijas 26b", 56560.00, 56),
-                new Apartment(Apartment.Type.FLAT, "Dombrovska 201", 41200.00, 35.2),
-                new Apartment(Apartment.Type.HOUSE, "Bikernieku 111", 55000.50, 40),
-                new Apartment(Apartment.Type.MANSION, "Bukaisu 4", 200000.00, 98),
-                new Apartment(Apartment.Type.MANSION, "Krasta 80", 152000.00, 100),
-                new Apartment(Apartment.Type.FLAT, "Mucinieku 11a", 61600.00, 33.5)
-        );
-        Apartment.Type[] types = Apartment.Type.values();
-        for (Apartment.Type type : types) {
-            model.addAttribute(type.toString(),
-                    (apartments.stream().filter(apartment -> apartment.getType().equals(type)).collect(Collectors.toList())));
-        }
-        return "gallery.html";
-    }*/
 
     @GetMapping("/gallery/{display}")
     public String displayApartments(@PathVariable String display, Model model) {
@@ -69,11 +43,13 @@ public class ApartmentController {
         }
 
         //Here it is ok to skip the Service layer, because not much business logic is implemented, just the method invocation
-        List<Apartment> apartments = apartmentRepo.findAllApartments();
+        Iterable<Apartment> apartments = apartmentRepo.findAll();
+        //Cant create a stream of Iterable, hence calling StreamSupport to create a list from iterable and then execute lambda logic with streams
+        List<Apartment> apartList = StreamSupport.stream(apartments.spliterator(), false).collect(Collectors.toList());
         Apartment.Type[] types = Apartment.Type.values();
         for (Apartment.Type type : types) {
             model.addAttribute(type.toString(),
-                    (apartments.stream().filter(apartment -> apartment.getType().equals(type)).collect(Collectors.toList())));
+                    (apartList.stream().filter(apartment -> apartment.getType().equals(type)).collect(Collectors.toList())));
         }
         return "gallery.html";
     }
