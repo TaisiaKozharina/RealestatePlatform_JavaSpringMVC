@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>User Messages</title>
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+
+    <div class="main">
+        <h3>Contact Messages</h3>
+
+        <table>
+            <tr>
+                <th scope="col">Name</th>
+                <th scope="col">Mobile Number</th>
+                <th scope="col">Email</th>
+                <th scope="col">Subject</th>
+                <th scope="col">Message</th>
+                <th scope="col"></th>
+            </tr>
+
+            <tbody>
+            <tr th:each="msg: ${messages}">
+                <td th:text="${msg.name}"></td>
+                <td th:text="${msg.mobileNum}"></td>
+                <td th:text="${msg.email}"></td>
+                <td th:text="${msg.subject}"></td>
+                <td th:text="${msg.message}"></td>
+                <td><a th:href="@{/closeMsg(id=${msg.contactID})}">CLOSE</a></td> <!--will add more params-->
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/dashboard}"><button>BACK</button></a>
+
+    </div>
+
+    <div th:replace="footer :: footer"></div>
+</body>
+</html>

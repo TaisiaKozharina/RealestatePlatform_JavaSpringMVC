@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Gallery</title>
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+
+    <div class="main">
+        <section>
+            <div>
+                <h5>Apartment List</h5>
+                <div th:if="${flat} == true">
+                    <h5>Flats!</h5>
+                        <div th:each="apartment : ${FLAT}">
+                            <h2 th:text="${apartment.address}"></h2>
+                            <h6 th:text="${apartment.size}"></h6>
+                            <h6 th:text="${apartment.description}"></h6>
+                            <h6 th:text="${apartment.price}"></h6>
+                        </div>
+                </div>
+
+                <div th:if="${house} == true">
+                    <h5>Houses!</h5>
+                    <div th:each="apartment : ${HOUSE}">
+                        <h2 th:text="${apartment.address}"></h2>
+                        <h6 th:text="${apartment.size}"></h6>
+                        <h6 th:text="${apartment.description}"></h6>
+                        <h6 th:text="${apartment.price}"></h6>
+                    </div>
+                </div>
+
+                <div th:if="${mansion} == true">
+                    <h5>Mansions!</h5>
+                    <div th:each="apartment : ${MANSION}">
+                        <h2 th:text="${apartment.address}"></h2>
+                        <h6 th:text="${apartment.size}"></h6>
+                        <h6 th:text="${apartment.description}"></h6>
+                        <h6 th:text="${apartment.price}"></h6>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:replace="footer :: footer"></div>
+</body>
+</html>

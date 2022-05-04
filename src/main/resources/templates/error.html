@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <meta charset="UTF-8">
+  <title>Some error occurred</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div th:replace="header :: header"></div>
+<div class="main">
+    <div>
+      <h3 class="h2">Oops... Looks like you're lost</h3>
+      <p th:text="${'Error Message - ' + errorMessage}"></p>
+      <a th:href="@{/home}">Go to Home</a>
+    </div>
+</div>
+
+<div th:replace="footer :: footer"></div>
+
+</body>
+</html>

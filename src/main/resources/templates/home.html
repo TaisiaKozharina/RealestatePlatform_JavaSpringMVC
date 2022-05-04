@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Real Estate Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div th:replace="header :: header"></div>
+    <div class="main">
+        <h1 th:text="'Hello, ' + ${username} + '. Welcome to Udemy School!!!' "></h1>
+    </div>
+    <br/>
+    <!--<div><a th:href="@{/gallery(flat='true', house='true', mansion='true')}">See our available apartments!</a></div>-->
+    <div><a th:href="@{/gallery/all}">See our available apartments!</a></div>
+    <br/>
+    <div th:replace="footer :: footer"></div>
+
+</body>
+</html>

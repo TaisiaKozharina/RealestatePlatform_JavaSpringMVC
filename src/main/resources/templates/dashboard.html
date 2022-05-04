@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+    <div class="main">
+            <div>
+                <h3 th:text="${'Welcome - ' + username}"></h3>
+                <p th:text="${'You logged in as - ' + roles}"></p>
+            </div>
+        <br/><br/>
+
+        <div sec:authorize="hasRole('ROLE_ADMIN')"> <!--By default Spring Security will add prefix "ROLE_" to the actual role name-->
+            <a th:href="@{/displayMessages}"><h4>Display Contact Messages</h4></a>
+        </div>
+    </div>
+    <div th:replace="footer :: footer"></div>
+</body>
+</html>
