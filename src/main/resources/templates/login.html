@@ -10,7 +10,7 @@
   <div th:replace="header :: header"></div>
   <div class="main">
     <div>
-        <h3>LogIn Form</h3>
+        <h3>Log-In Form</h3>
         <form th:action="@{/login}" method="post" class="signin-form">
             <li role="alert" th:if="${!#strings.isEmpty(errorMessage)}" th:text="${errorMessage}"/>
             <input type="text" name="username" id="username" placeholder="Username"/>

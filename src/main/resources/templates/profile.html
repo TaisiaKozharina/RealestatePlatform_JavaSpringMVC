@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div th:replace="header :: header"></div>
+
+    <div class="main">
+        <ul>
+
+            <li role="alert" th:each="error : ${#fields.errors('profile.*')}" th:text="${error}" />
+        </ul>
+
+        <form th:action="@{/updateProfile}" method="post" th:object="${profile}">
+            <h5>Personal Details</h5>
+                <label for="name">Username:</label>
+                <input type="text" th:field="*{username}" id="name"/>
+                <br/>
+                <label for="mobile_number">Mobile Number:</label>
+                <input type="text" th:field="*{mobile_number}" id="mobile_number"/>
+                <br/>
+                <label for="email">Email:</label>
+                <input type="text" th:field="*{email}" id="email"/>
+                <br/>
+                <button >Update</button>
+                <a th:href="@{/dashboard}"><button th:formaction="@{/dashboard}">BACK</button></a>
+        </form>
+    </div>
+
+    <div th:replace="footer :: footer"></div>
+
+</body>
+</html>

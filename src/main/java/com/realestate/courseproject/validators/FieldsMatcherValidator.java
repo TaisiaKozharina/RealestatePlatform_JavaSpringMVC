@@ -24,8 +24,14 @@ public class FieldsMatcherValidator implements ConstraintValidator<FieldMatcher,
         Object fieldMatchValue = new BeanWrapperImpl(value).getPropertyValue(fieldMatch);
 
         if (fieldValue != null) {
-            return fieldValue.equals(fieldMatchValue);
-        } else {
+            //Hashed passwords as strings will start with '$2a'
+            if(fieldValue.toString().startsWith("$2a")){
+                return true;
+            }else{
+                return fieldValue.equals(fieldMatchValue);
+            }
+        }
+        else {
             return fieldMatchValue == null;
         }
     }

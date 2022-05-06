@@ -2,6 +2,7 @@ package com.realestate.courseproject.repository;
 
 import com.realestate.courseproject.model.Apartment;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,7 +11,8 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ApartmentRepo extends CrudRepository<Apartment, Integer> {
+public interface ApartmentRepo extends JpaRepository<Apartment, Integer> {
+    //extends CrudRepository<Apartment, Integer> ????
 
     /* Commented when migrating to Spring Data JPA
 

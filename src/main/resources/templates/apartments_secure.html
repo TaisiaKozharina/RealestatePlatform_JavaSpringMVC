@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Apartment List</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div th:replace="header :: header"></div>
+
+    <div class="main">
+        <h3>Apartment Details</h3>
+        <button  data-bs-target="#addCourse">ADD APARTMENT</button>
+
+        <div>
+            <h5>Add New Apartment</h5>
+            <button type="button"><span aria-hidden="true">&times;</span></button>
+
+        <form th:action="@{/admin/addNewApartment}" method="post" th:object="${apartment}">
+
+                <label for="city">City</label>
+                <input type="text" name="city" id="city" th:field="*{city}" required placeholder="Enter City">
+                <label for="address">Address</label>
+                <input type="text" name="address" id="address" th:field="*{address}" required placeholder="Enter Address">
+                <label for="price">price</label>
+                <input type="number" name="price" id="price" th:field="*{price}" required placeholder="Enter Price">
+                <label for="size">Size</label>
+                <input type="number" name="size" id="size" th:field="*{size}" required placeholder="Enter Size">
+                <label for="rooms">Rooms</label>
+                <input type="number" name="rooms" id="rooms" th:field="*{rooms}" required placeholder="Enter Rooms">
+                <label for="description">Description</label>
+                <input type="text" name="description" id="description" th:field="*{description}" required placeholder="Enter Description">
+                <label for="type">Type</label>
+                <select id="type"th:field="*{type}">
+                        <option th:each="apartType : ${apartTypes}"
+                                th:value="${apartTypes}">
+                        </option>
+                </select>
+                <button type="submit">Submit</button>
+        </form>
+        </div>
+
+        <table >
+            <thead>
+            <tr>
+                <th>City</th>
+                <th>Address</th>
+                <th>Price</th>
+                <th>Size</th>
+                <th>Rooms</th>
+                <th>Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="apartment: ${apartments}">
+                <td th:text="${apartment.city}"></td>
+                <td th:text="${apartment.address}"></td>
+                <td th:text="${apartment.price}"></td>
+                <td th:text="${apartment.size}"></td>
+                <td th:text="${apartment.rooms}"></td>
+                <td th:text="${apartment.description}"></td>
+                <td><a th:href="@{/}">VIEW USERS (in development)</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <a th:href="@{/dashboard}"><button>BACK</button></a>
+    </div>
+
+    <div th:replace="footer :: footer"></div>
+
+</body>
+</html>

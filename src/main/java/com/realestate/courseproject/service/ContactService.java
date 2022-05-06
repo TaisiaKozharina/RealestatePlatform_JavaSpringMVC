@@ -28,9 +28,7 @@ public class ContactService {
     private ContactRepo contactRepo;
 
     //private static Logger log = LoggerFactory.getLogger(ContactService.class); - Without @Slf4j
-    public ContactService() {
-        System.out.println("Hey! Contact Service Bean initialized!!!!");
-    }
+    public ContactService() {    }
 
     public boolean saveMessageDetails(Contact contact){
         boolean isSaved = false;

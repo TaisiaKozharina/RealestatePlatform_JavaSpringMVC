@@ -8,14 +8,28 @@
 <body>
     <div th:replace="header :: header"></div>
     <div class="main">
-            <div>
-                <h3 th:text="${'Welcome - ' + username}"></h3>
-                <p th:text="${'You logged in as - ' + roles}"></p>
-            </div>
+
+        <div>
+            <a th:href="@{/displayProfile}">
+                <div class="icon">
+                    <i class="fas fa-id-card"></i>
+                </div>
+                <div class="text">
+                    <h2>Profile</h2>
+                </div>
+            </a>
+        </div>
+
+        <div>
+            <h3 th:text="${'Welcome - ' + username}"></h3>
+            <p th:text="${'You logged in as - ' + roles}"></p>
+        </div>
         <br/><br/>
 
         <div sec:authorize="hasRole('ROLE_ADMIN')"> <!--By default Spring Security will add prefix "ROLE_" to the actual role name-->
             <a th:href="@{/displayMessages}"><h4>Display Contact Messages</h4></a>
+            <a th:href="@{/admin/displayApartments}"><h4>Display Apartments</h4></a>
+            <a th:href="@{/admin/displayUsers}"><h4>Display Users</h4></a>
         </div>
     </div>
     <div th:replace="footer :: footer"></div>

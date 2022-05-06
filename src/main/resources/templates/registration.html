@@ -6,25 +6,41 @@
     <link rel="stylesheet" href="/style.css">
 </head>
 <body>
+    <script>
+        function validateForm (){
+          if (document.getElementById('email').value === document.getElementById('confirmEmail').value &&
+           document.getElementById('password').value === document.getElementById('confirmPassword').value )
+            {
+            return true;
+            }
+          else{
+          var list_item = document.createElement('li');
+          list_item.innerText = 'Test';
+          document.getElementById('alert').appendChild(list_item);
+          return false;
+          }
+        }
+    </script>
     <div th:replace="header :: header"></div>
 
     <div class="main">
         <h3>Registration Form</h3>
         <div>
-            <ul>
+            <ul id="alert">
+                <li id="alertJS" />
                 <li role="alert" th:each="error : ${#fields.errors('user.*')}" th:text="${error}" />
             </ul>
-            <form th:action="@{/public/createUser}" method="post" th:object="${user}">
+            <form id="contact_form" th:action="@{/public/createUser}" method="post" th:object="${user}" onsubmit="return validateForm()">
                 <p class="text-uppercase">Personal Details</p>
                 <br/>
-                <input type="text" th:field="*{username}" placeholder="Name"/>
-                <input type="text" th:field="*{mobileNumber}" placeholder="Mobile Number"/>
+                <input  type="text" th:field="*{username}" placeholder="Name"/>
+                <input type="text" th:field="*{mobile_number}" placeholder="Mobile Number"/>
                 <br/>
-                <input type="text" th:field="*{email}" placeholder="Email"/>
-                <input type="text" th:field="*{confirmEmail}" placeholder="Confirm Email"/>
+                <input id="email" type="text" th:field="*{email}" placeholder="Email"/>
+                <input id="confirmEmail" type="text"  placeholder="Confirm Email"/>
                 <br/>
-                <input type="password" th:field="*{password}" placeholder="Password"/>
-                <input type="password" th:field="*{confirmPassword}" placeholder="Confirm Password"/>
+                <input id="password" type="password" th:field="*{password}" placeholder="Password"/>
+                <input id="confirmPassword" type="password"  placeholder="Confirm Password"/>
                 <br/>
                 <button>Register</button>
             </form>
@@ -33,4 +49,6 @@
 
     <div th:replace="header :: header"></div>
 </body>
+
+
 </html>
