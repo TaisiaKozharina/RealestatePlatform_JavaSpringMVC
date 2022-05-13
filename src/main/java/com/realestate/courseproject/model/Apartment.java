@@ -23,7 +23,19 @@ public class Apartment extends BaseEntity{
     @Enumerated(EnumType.STRING) //Spring JPA will have data on enum options and convert it into varchar for DB
     private Type type;
     public enum Type{
-        FLAT, HOUSE, MANSION
+        FLAT ("Flat"),
+        HOUSE("House"),
+        MANSION ("Mansion");
+
+        private final String typeName;
+
+        Type(String typeName){
+            this.typeName = typeName;
+        }
+
+        public String getTypeName() {
+            return typeName;
+        }
     }
 
     private String city;

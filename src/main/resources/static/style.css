@@ -1,4 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
 *{
+font-family: 'Playfair Display';
+letter-spacing: .1rem;
 margin:0;
 padding:0;
 }
@@ -6,23 +10,90 @@ padding:0;
 footer{
 width:100%;
 bottom:0;
-background-color: black;
-color: white;
+background-color: #191512;
+color: #F5E39E;
 text-align: center;
 }
 
 header{
 width:100%;
-background-color: black;
-color: white;
+background-color: #191512;
+color: #F5E39E;
 display: inline-block;
 top:0;
 text-align: center;
 }
 
-.header nav li{
+header .header nav li{
 float: right;
-margin-right: 30px;
+margin-right: 60px;
+font-weight: 700;
+}
+
+header .nav-logo{
+float: left;
+margin-left: 60px;
+}
+
+header .logo{
+width: 60px;
+}
+
+header a:link,
+header a:visited{
+color: #F5E39E;
+text-decoration: none;
+}
+
+header a:hover{
+color: white;
+}
+/*LINK ANIMATION*/
+.nav-link {
+  background-image: linear-gradient(to right, #FA9E0D, #FA9E0D 50%, #F5E39E 50%);
+  background-size: 200% 100%;
+  background-position: -100%;
+  display: inline-block;
+  padding: 5px 0;
+  position: relative;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.nav-link:before{
+  content: '';
+  background: #FA9E0D;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  transition: all 0.3s ease-in-out;
+}
+.nav-link:hover{
+background-position: 0;
+}
+
+nav-link:hover::before{
+  width: 100%;
+}
+/*--------------*/
+
+.header ul{
+list-style-type: none;
+font-size: 20px;
+}
+
+header .superheader{
+font-size: 2em;
+font-weight: 700;
+}
+header .smaller-superheader{
+font-size: 1em;
+font-style: italic;
+text-transform: uppercase;
 }
 
 .main{

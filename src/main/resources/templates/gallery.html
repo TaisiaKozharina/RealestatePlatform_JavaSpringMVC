@@ -19,7 +19,13 @@
                             <h6 th:text="${apartment.size}"></h6>
                             <h6 th:text="${apartment.description}"></h6>
                             <h6 th:text="${apartment.price}"></h6>
-                            <img th:src="@{/img/{image}(image=${apartment.photo_url})}">
+                           <!-- <div th:switch="${apartment.photo_url}">
+                                <img th:case="''" th:src="@{/img/default.jpg}">
+                                <img th:case="*" th:src="@{/img/{image}(image=${apartment.photo_url})}">
+                            </div>-->
+
+                            <!--<img th:src="${apartment.photo_url} ? '@{/img/{image}(image=${apartment.photo_url})}' : '@{/img/default.jpg}'" />-->
+                            <img th:src="@{/img/{image}(image=${apartment.photo_url})}" onerror="this.onerror=null;this.src='/img/default.jpg';">
                         </div>
                 </div>
 

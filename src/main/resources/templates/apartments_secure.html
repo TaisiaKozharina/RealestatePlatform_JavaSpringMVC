@@ -31,9 +31,10 @@
                 <label for="description">Description</label>
                 <input type="text" name="description" id="description" th:field="*{description}" required placeholder="Enter Description">
                 <label for="type">Type</label>
-                <select id="type"th:field="*{type}">
+                <select id="type" th:field="*{type}">
                         <option th:each="apartType : ${apartTypes}"
-                                th:value="${apartTypes}">
+                                th:text="${apartType.name}"
+                                th:value="${apartType}">
                         </option>
                 </select>
                 <button type="submit">Submit</button>

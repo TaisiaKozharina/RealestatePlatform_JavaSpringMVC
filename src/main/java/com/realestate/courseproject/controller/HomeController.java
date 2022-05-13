@@ -9,7 +9,7 @@ public class HomeController {
     @RequestMapping(value = {"", " ", "/home"})
     public String displayHome(Model model){
         //Model is interface acting as container between UI and backend holding needed values
-        model.addAttribute("username", "John Doe");
+        model.addAttribute("username", "Dear User");
         return "home.html";
     }
 }

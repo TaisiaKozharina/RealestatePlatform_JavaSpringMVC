@@ -5,33 +5,39 @@
     <title>Title</title>
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <header>
         <div class="header">
             <nav>
-                <a th:href="@{/home}">PlaceForLogo</a>
+                <a class="nav-logo" th:href="@{/home}">
+                    <img class="logo" src="/img/logo.png">
+                    <p class="superheader">REState</p>
+                    <br/>
+                    <p class="smaller-superheader">Where dreams come home</p>
+                </a>
                 <div>
                     <ul>
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a th:href="@{/home}" class="nav-link active" aria-current="page">Home</a>
+                            <a class="nav-link" th:href="@{/home}" aria-current="page">Home</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a th:href="@{/gallery}" class="nav-link">Gallery</a>
+                            <a class="nav-link" th:href="@{/gallery}" >Gallery</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a th:href="@{/about}" class="nav-link">About Us</a>
+                            <a class="nav-link" th:href="@{/about}" >About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a th:href="@{/contact}" class="nav-link">Contact</a>
+                            <a class="nav-link" th:href="@{/contact}" >Contact</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAnonymous()">
-                            <a th:href="@{/login}" class="nav-link">LOG IN</a>
+                            <a class="nav-link" th:href="@{/login}" >LOG IN</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAuthenticated()">
-                            <a th:href="@{/dashboard}" class="nav-link">Dashboard</a>
+                            <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
                         </li>
                         <li class="nav-item" sec:authorize="isAuthenticated()">
-                            <a th:href="@{/logout}" class="nav-link">LOG OUT</a>
+                            <a class="nav-link" th:href="@{/logout}" >LOG OUT</a>
                         </li>
                     </ul>
                 </div>
