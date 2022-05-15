@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -14,7 +14,7 @@
         <!--${#fields.errors('contact.*')} will fetch error available inside fields of bean Contact, iterating through error list -->
         <form action="saveMsg" method="post" th:object="${contact}">
             <input type="text" th:field="*{name}" placeholder="Your Name" />
-            <input type="text" th:field="*{mobile_number}" placeholder="Your Mobile Number"/>
+            <input type="text" th:field="*{mobileNum}" placeholder="Your Mobile Number"/>
             <input type="text" th:field="*{email}" placeholder="Your Email" />
             <input type="text" th:field="*{subject}" placeholder="Subject"/>
             <textarea th:field="*{message}" placeholder="Type your message here"></textarea>

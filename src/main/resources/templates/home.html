@@ -3,17 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <title>Real Estate Gallery</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
     <div th:replace="header :: header"></div>
     <div class="main">
         <h1 th:text="'Hello, ' + ${username} + '. Here will be cute gallery with our latest offers'"></h1>
+        <h1 th:text="'Currently we have ' + ${apartCount} + ' unique apartment options!'"></h1>
+        <h1 th:text="'There are ' + ${userCount} + ' active users on our website! Become one of us! there will be a link to registration page'"></h1>
     </div>
     <br/>
     <!--<div><a th:href="@{/gallery(flat='true', house='true', mansion='true')}">See our available apartments!</a></div>-->
-    <div><a th:href="@{/gallery/all}">See our available apartments!</a></div>
+    <div><a th:href="@{/gallery}">See our available apartments!</a></div>
     <br/>
     <div th:replace="footer :: footer"></div>
 

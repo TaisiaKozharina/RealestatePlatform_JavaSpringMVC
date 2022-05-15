@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
 
@@ -29,7 +29,35 @@
                 <button >Update</button>
                 <a th:href="@{/dashboard}"><button th:formaction="@{/dashboard}">BACK</button></a>
         </form>
+
+        <div>
+            <h3 th:text="${user.username} + ' WishList: '"></h3>
+            <table>
+                <thead>
+                <tr>
+                    <th>City</th>
+                    <th>Address</th>
+                    <th>Price</th>
+                    <th>Size</th>
+                    <th>Rooms</th>
+                    <th>Description</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="apartment: ${user.apartments}">
+                    <td th:text="${apartment.city}"></td>
+                    <td th:text="${apartment.address}"></td>
+                    <td th:text="${apartment.price}"></td>
+                    <td th:text="${apartment.size}"></td>
+                    <td th:text="${apartment.rooms}"></td>
+                    <td th:text="${apartment.description}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
+
+
 
     <div th:replace="footer :: footer"></div>
 

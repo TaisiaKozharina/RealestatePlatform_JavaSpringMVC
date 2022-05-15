@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>User Messages</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -11,20 +12,37 @@
     <div class="main">
         <h3>Contact Messages</h3>
 
-        <table>
+        <table class="dataTable">
+            <thead>
             <tr>
-                <th scope="col">Name</th>
-                <th scope="col">Mobile Number</th>
-                <th scope="col">Email</th>
-                <th scope="col">Subject</th>
-                <th scope="col">Message</th>
-                <th scope="col"></th>
+                <th class="sorting">
+                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Name</a>
+                </th>
+
+                <th class="sorting">
+                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=mobileNum&sortDir=' + ${reverseSortDir}}">Mobile Number</a>
+                </th>
+
+                <th class="sorting">
+                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">Email</a>
+                </th>
+
+                <th class="sorting">
+                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=subject&sortDir=' + ${reverseSortDir}}">Subject</a>
+                </th>
+
+                <th class="sorting">
+                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=message&sortDir=' + ${reverseSortDir}}">Message</a>
+                </th>
+
+                <th></th>
             </tr>
+            </thead>
 
             <tbody>
             <tr th:each="msg: ${messages}">
                 <td th:text="${msg.name}"></td>
-                <td th:text="${msg.mobile_number}"></td>
+                <td th:text="${msg.mobileNum}"></td>
                 <td th:text="${msg.email}"></td>
                 <td th:text="${msg.subject}"></td>
                 <td th:text="${msg.message}"></td>
@@ -32,6 +50,38 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- pagination -->
+        <div class="pagination">
+            <ul>
+                <li> <!--If user is not on Page 1, then left arrow is enabled-->
+                    <a th:if="${currentPage > 1}" th:href="@{'/displayMessages/page/' + ${currentPage - 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+                        <span class="fa fa-angle-double-left" aria-hidden="true"></span>
+                    </a><!--otherwise, left arrow is disabled-->
+                    <a th:unless="${currentPage > 1}" class="not-allowed" disabled="">
+                        <span class="fa fa-angle-double-left" aria-hidden="true"></span>
+                    </a>
+                </li>
+
+                <!--Taking info from backend. Based on number of pages, iterating through each page, where each page(beside current) is a link to some other page-->
+                <span th:each="i: ${#numbers.sequence(1, totalPages)}">
+                    <li>
+                        <a th:if="${currentPage != i}" th:href="@{'/displayMessages/page/' + ${i}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                        <a class="active" th:unless="${currentPage != i}">[[${i}]]</a>
+                    </li>
+                </span>
+
+                <li><!--If user is not last page, then right arrow is enabled-->
+                    <a th:if="${currentPage < totalPages}" th:href="@{'/displayMessages/page/' + ${currentPage + 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+                        <span class="fa fa-angle-double-right" aria-hidden="true"></span>
+                    </a>
+                    <a th:unless="${currentPage < totalPages}" class="not-allowed" disabled="">
+                        <span class="fa fa-angle-double-right" aria-hidden="true"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- //pagination -->
 
         <a th:href="@{/dashboard}"><button>BACK</button></a>
 

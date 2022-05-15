@@ -6,6 +6,10 @@ import com.realestate.courseproject.model.Contact;
 import com.realestate.courseproject.repository.ContactRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.ApplicationScope;
 import org.springframework.web.context.annotation.RequestScope;
@@ -15,13 +19,13 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
-@Service
-@Slf4j
 //By default, every Bean is of scope Singleton.
 //@RequestScope //new bean for every request. Every time you fill form a new bean instance will be created!
 //@SessionScope //new bean per session. Bean is created every time new "user" or you via different browsers will access form
 //@ApplicationScope //there is one instance for single servlet context regardless of threads, users and requests! Only use if really needed! Use DB of cache instead in other cases
+
+@Service
+@Slf4j
 public class ContactService {
 
     @Autowired
@@ -44,21 +48,22 @@ public class ContactService {
         return isSaved;
     }
 
-    public List<Contact> findOpenStatusMessages(){
+    public Page<Contact> findOpenStatusMessages(int pageNum, String sortField, String sortDir){
+        int pageSize = 5; //how many records per page
+        //pageNum - 1 -> since pageNum is obtained from UI, and paging starts with index = 0
+        Pageable pageable = PageRequest.of(
+                pageNum - 1,
+                pageSize,
+                sortDir.equals("asc") ? Sort.by(sortField).ascending() : Sort.by(sortField).descending());
+        Page<Contact> page = contactRepo.findByStatus(GlobalConstants.OPEN, pageable);
         List<Contact> messages = contactRepo.findByStatus(GlobalConstants.OPEN);
-        return messages;
+        return page;
     }
 
     public boolean updateMsgStatus(int contactID){
         boolean isUpdated = false;
-        Optional<Contact> contact = contactRepo.findById(contactID);
-        contact.ifPresent(contact1 -> {
-            contact1.setStatus(GlobalConstants.CLOSED);
-        });
-        //calling contact.get() because it is optional and we need an actual object of Contact
-        Contact updatedContact = contactRepo.save(contact.get());
-        if(null != updatedContact && updatedContact.getUpdatedBy()!=null) {
-            //if operation was successful
+        int updatedRows = contactRepo.updateStatusByID(GlobalConstants.CLOSED, contactID);
+        if(updatedRows > 0) {
             isUpdated = true;
         }
         return isUpdated;

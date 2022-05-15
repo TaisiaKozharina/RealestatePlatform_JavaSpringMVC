@@ -3,11 +3,17 @@ package com.realestate.courseproject.repository;
 
 import com.realestate.courseproject.model.Contact;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.stereotype.Repository;
 
+import javax.transaction.Transactional;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -15,50 +21,17 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
-public interface ContactRepo extends CrudRepository<Contact, Integer> {
+public interface ContactRepo extends PagingAndSortingRepository<Contact, Integer> {
 
     //Fetches record according to the status. Return List as there are probably many messages of one type
     List<Contact> findByStatus(String status);
 
-/*Commented when migrating to Spring Data JPA
+    @Query("SELECT c FROM Contact c WHERE c.status = :status") //param in method is status, but can use ?1 isnstead of :status
+    Page<Contact> findByStatus(String status, Pageable pageable);
 
-import com.realestate.courseproject.mappers.ContactRowMapper;
-    private final JdbcTemplate jdbcTemplate;
-
-    @Autowired
-    public ContactRepo(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
-
-    public int saveContactMsg(Contact contact){
-        String sqlQuery = "INSERT INTO CONTACT_MSG (NAME,MOBILE_NUM,EMAIL,SUBJECT,MESSAGE,STATUS," +
-                "CREATED_AT,CREATED_BY) VALUES (?,?,?,?,?,?,?,?)";
-        return jdbcTemplate.update(sqlQuery,contact.getName(),contact.getMobileNum(),
-                contact.getEmail(),contact.getSubject(),contact.getMessage(),
-                contact.getStatus(),contact.getCreatedAt(),contact.getCreatedBy());
-    }
-
-    public List<Contact> findMessagesByStatus(String status) {
-        String sqlQuery = "SELECT * FROM CONTACT_MSG WHERE STATUS = ?";
-        return jdbcTemplate.query(sqlQuery,new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                preparedStatement.setString(1, status);
-            }
-        },new ContactRowMapper());
-        //RowMapper needed to map values of contact messages from DB to POJO object. See class
-    }
-
-    public int updateMsgStatus(int contactID, String status,String updatedBy) {
-        String sqlQuery = "UPDATE CONTACT_MSG SET STATUS = ?, UPDATED_BY = ?,UPDATED_AT =? WHERE CONTACT_ID = ?";
-        return jdbcTemplate.update(sqlQuery,new PreparedStatementSetter() {
-            public void setValues(PreparedStatement preparedStatement) throws SQLException {
-                //orders must match
-                preparedStatement.setString(1, status);
-                preparedStatement.setString(2, updatedBy);
-                preparedStatement.setTimestamp(3, Timestamp.valueOf(LocalDateTime.now()));
-                preparedStatement.setInt(4, contactID);
-            }
-        });
-    }*/
+    @Transactional
+    @Modifying
+    @Query("UPDATE Contact c SET c.status = ?1 WHERE c.contactID = ?2")
+    int updateStatusByID(String status, int id);
 
 }

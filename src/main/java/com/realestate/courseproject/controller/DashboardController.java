@@ -1,6 +1,7 @@
 package com.realestate.courseproject.controller;
 
 import com.realestate.courseproject.model.User;
+import com.realestate.courseproject.repository.ApartmentRepo;
 import com.realestate.courseproject.repository.UserRepo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,11 +20,15 @@ public class DashboardController {
     @Autowired
     UserRepo userRepo;
 
+/*    @Autowired
+    ApartmentRepo apartmentRepo;*/
+
     @RequestMapping("/dashboard")
     public String displayDashboard(Model model, Authentication authentication, HttpSession session){
         User user = userRepo.readByEmail(authentication.getName()); //authentication.getName() will return email, check LogInAuthenticationProvider method authenticate()
         model.addAttribute("username", user.getUsername());
         model.addAttribute("roles", authentication.getAuthorities().toString());
+        model.addAttribute("apartments");
         session.setAttribute("currentUser", user);
         return "dashboard.html";
     }

@@ -36,6 +36,7 @@ public class ProfileController {
 
         ModelAndView modelAndView = new ModelAndView("profile.html");
         modelAndView.addObject("profile", profile);
+        modelAndView.addObject("user", user);
         return modelAndView;
     }
 

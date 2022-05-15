@@ -76,11 +76,11 @@ public class User{
     private Role role;
 
 
-    /*@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "wishlist",
             joinColumns = {@JoinColumn(name = "userid", referencedColumnName = "userID")},
-            inverseJoinColumns =  {@JoinColumn(name = "code", referencedColumnName = "code")})
-    private Set<Apartment> apartments = new HashSet<>();*/
+            inverseJoinColumns =  {@JoinColumn(name = "code", referencedColumnName = "code")}) //The bridging table should not be created in code
+    private Set<Apartment> apartments = new HashSet<>();
 
 }

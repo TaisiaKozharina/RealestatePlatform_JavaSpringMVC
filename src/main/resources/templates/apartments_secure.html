@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Secure Apartment List</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -44,6 +44,7 @@
         <table >
             <thead>
             <tr>
+                <th>Code</th>
                 <th>City</th>
                 <th>Address</th>
                 <th>Price</th>
@@ -54,13 +55,14 @@
             </thead>
             <tbody>
             <tr th:each="apartment: ${apartments}">
+                <td th:text="${apartment.code}"></td>
                 <td th:text="${apartment.city}"></td>
                 <td th:text="${apartment.address}"></td>
                 <td th:text="${apartment.price}"></td>
                 <td th:text="${apartment.size}"></td>
                 <td th:text="${apartment.rooms}"></td>
                 <td th:text="${apartment.description}"></td>
-                <td><a th:href="@{/}">VIEW USERS (in development)</a></td>
+                <td><a th:href="@{/admin/viewUsersWish(id=${apartment.code})}">VIEW USERS</a></td>
             </tr>
             </tbody>
         </table>

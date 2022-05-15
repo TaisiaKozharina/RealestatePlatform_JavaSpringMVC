@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Wishlist: Admin view</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+
+<div th:replace="header :: header"></div>
+
+<div class="main">
+    <h3 th:text="${apartment.address} + ' apartment is wishlisted by:'"></h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Mobile Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user: ${apartment.users}">
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.email}"></td>
+            <td th:text="${user.mobile_number}"></td>
+            <!--<td><a th:href="@{/admin/deleteStudentFromCourse(personId=${person.personId})}">DELETE</a></td>-->
+        </tr>
+        </tbody>
+    </table>
+    <a th:href="@{/admin/displayApartments}">
+        <button >BACK</button>
+    </a>
+
+</div>
+
+<div th:replace="footer :: footer"></div>
+
+</body>
+</html>

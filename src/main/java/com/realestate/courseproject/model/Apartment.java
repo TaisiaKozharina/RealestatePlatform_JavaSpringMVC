@@ -52,12 +52,9 @@ public class Apartment extends BaseEntity{
 
     private String photo_url; //URL of image
 
-    //@ManyToMany(mappedBy = "apartments", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
-    //private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "apartments", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    private Set<User> users = new HashSet<>();
 
     //private final boolean isActive;
-
-
-
 
 }

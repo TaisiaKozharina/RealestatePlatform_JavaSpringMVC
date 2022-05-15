@@ -6,11 +6,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,8 +28,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @Slf4j
 public class ContactController {
 
-    //private static Logger log = LoggerFactory.getLogger(ContactController.class); - without @Slf4j
-
     private final ContactService contactService;
 
     @Autowired
@@ -42,21 +42,6 @@ public class ContactController {
         return "contact.html";
     }
 
-
-/*    //@PostMapping("/saveMsg")
-    @RequestMapping(value = "/saveMsg",method = POST)
-    public ModelAndView saveMessage(@RequestParam String name, @RequestParam String mobileNum,
-                                    @RequestParam String email, @RequestParam String subject, @RequestParam String message) {
-        //RequestParam has to match name and id of input in form
-        log.info("Name : " + name);
-        log.info("Mobile Number : " + mobileNum);
-        log.info("Email Address : " + email);
-        log.info("Subject : " + subject);
-        log.info("Message : " + message);
-        return new ModelAndView("redirect:/contact");
-        //ModelAndView for sending data to UI along with data
-    }*/
-
     @RequestMapping(value = "/saveMsg",method = POST)
     public String saveMessage(@Valid @ModelAttribute("contact") Contact contact, Errors errors){
         if(errors.hasErrors()){
@@ -68,10 +53,21 @@ public class ContactController {
     }
 
 
-    @RequestMapping("/displayMessages")
-    public ModelAndView displayMessages(Model model){
-        List<Contact> messages = contactService.findOpenStatusMessages();
+    @RequestMapping("/displayMessages/page/{pageNum}")
+    public ModelAndView displayMessages(Model model,
+                                        @PathVariable(name = "pageNum") int pageNum,
+                                        @RequestParam("sortField") String sortField,
+                                        @RequestParam("sortDir") String sortDir)
+    {
+        Page<Contact> page = contactService.findOpenStatusMessages(pageNum, sortField, sortDir);
+        List<Contact> messages = page.getContent();
         ModelAndView modelAndView = new ModelAndView("messages.html");
+        model.addAttribute("currentPage", pageNum);
+        model.addAttribute("totalPages", page.getTotalPages());
+        model.addAttribute("totalMsgs", page.getTotalElements());
+        model.addAttribute("sortField", sortField);
+        model.addAttribute("sortDir", sortDir);
+        model.addAttribute("reverseSortDir", sortDir.equals("asc") ? "desc" : "asc");
         modelAndView.addObject("messages", messages);
         return modelAndView;
     }
@@ -79,6 +75,6 @@ public class ContactController {
     @RequestMapping(value = "/closeMsg", method = GET)
     public String closeMsg(@RequestParam int id){
         contactService.updateMsgStatus(id);
-        return "redirect:/displayMessages";
+        return "redirect:/displayMessages/page/1?sortField=name&sortDir=desc";
     }
 }
