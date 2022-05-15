@@ -63,6 +63,7 @@
                 <td th:text="${apartment.rooms}"></td>
                 <td th:text="${apartment.description}"></td>
                 <td><a th:href="@{/admin/viewUsersWish(id=${apartment.code})}">VIEW USERS</a></td>
+                <td><a th:href="@{/admin/deleteApartment(id=${apartment.code})}">DELETE APARTMENT</a></td>
             </tr>
             </tbody>
         </table>

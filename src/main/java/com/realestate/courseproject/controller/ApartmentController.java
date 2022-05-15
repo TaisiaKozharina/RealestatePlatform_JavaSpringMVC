@@ -2,10 +2,12 @@ package com.realestate.courseproject.controller;
 
 import com.realestate.courseproject.model.Apartment;
 import com.realestate.courseproject.repository.ApartmentRepo;
+import com.realestate.courseproject.service.ApartmentService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +28,18 @@ public class ApartmentController {
     @Autowired
     private ApartmentRepo apartmentRepo;
 
+    ApartmentService apartmentService;
+
+    public ApartmentController(ApartmentService apartmentService) {
+        this.apartmentService = apartmentService;
+    }
 
     /*@GetMapping("/gallery/{display}") : in method params add @PathVariable String display, */
     @GetMapping("/gallery")
-    public ModelAndView displayApartments(Model model) {
+    public ModelAndView displayApartments(Model model,
+                                          @Param("filterCity") String city,
+                                          @Param("filterType") Apartment.Type type,
+                                          @Param("filterRooms") Integer rooms) {
 
         /*if(display != null && display.equals("all")){
             model.addAttribute("flat", true);
@@ -44,9 +54,9 @@ public class ApartmentController {
         }
         else if (display != null && display.equals("mansion")){
             model.addAttribute("mansion", true);
-        }*/
+        }
 
-        /*//Here it is ok to skip the Service layer, because not much business logic is implemented, just the method invocation
+
         Iterable<Apartment> apartments = apartmentRepo.findAll();
         //Can't create a stream of Iterable, hence calling StreamSupport to create a list from iterable and then execute lambda logic with streams
         List<Apartment> apartList = StreamSupport.stream(apartments.spliterator(), false).collect(Collectors.toList());

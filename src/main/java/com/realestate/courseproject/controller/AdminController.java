@@ -46,6 +46,18 @@ public class AdminController {
         return modelAndView;
     }
 
+    @RequestMapping("/deleteApartment")
+    public ModelAndView deleteApartment(Model model, @RequestParam int id) {
+        Optional<Apartment> apartment = apartmentRepo.findById(id);
+        for(User users : apartment.get().getUsers()){
+            users.setApartments(null);
+            userRepo.save(users);
+        }
+        apartmentRepo.deleteById(id);
+        ModelAndView modelAndView = new ModelAndView("redirect:/admin/displayApartments");
+        return modelAndView;
+    }
+
     @GetMapping("/viewUsersWish")
     public ModelAndView viewUsersWish(Model model, @RequestParam int id){
         ModelAndView modelAndView = new ModelAndView("wishlist.html");
