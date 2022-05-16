@@ -15,24 +15,34 @@
                 <h5>Apartment List</h5>
                 <br/><br/>
 
-<!--                &lt;!&ndash;Filter panel&ndash;&gt;
-                <form th:action="@{/}">
+                <h3>Filter panel</h3>
+                <form th:action="@{/gallery}" th:object="${apartDTO}">
                     <h4>Filter by:</h4>
                     <label for="city">City</label>
-                    <input type="text" name="city" id="city" th:value="${}" required />
+                    <input type="text" name="city" id="city" th:value="${apartDTO.city}"/>
+
+                    <label for="address">Address</label>
+                    <input type="text" name="address" id="address" th:value="${apartDTO.address}"/>
+
+                    <label for="rooms">Rooms</label>
+                    <input type="number" name="rooms" id="rooms" th:value="${apartDTO.rooms}"/>
 
                     <label for="type">Type</label>
                     <select name="type" id="type" th:field="*{type}">
                         <option th:each="apartType : ${apartTypes}"
                                 th:text="${apartType.name}"
-                                th:value="${apartType}">
+                                th:value="${apartDTO.type}">
                         </option>
                     </select>
 
-                    <label for="city">Rooms</label>
-                    <input type="number" name="rooms" id="rooms" th:value="${}" required />
+                    <label for="lowerBound">Price min</label>
+                    <input type="number" name="lowerBound" id="lowerBound" th:value="${apartDTO.lowerBound}"/>
 
-                </form>-->
+                    <label for="upperBound">Price max</label>
+                    <input type="number" name="upperBound" id="upperBound" th:value="${apartDTO.upperBound}"/>
+
+                    <button >Submit</button>
+                </form>
 
                 <div class="col">
                     <div class="row">

@@ -1,5 +1,6 @@
 package com.realestate.courseproject.controller;
 
+import com.realestate.courseproject.dto.ApartmentDTO;
 import com.realestate.courseproject.model.Apartment;
 import com.realestate.courseproject.repository.ApartmentRepo;
 import com.realestate.courseproject.service.ApartmentService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -36,10 +38,7 @@ public class ApartmentController {
 
     /*@GetMapping("/gallery/{display}") : in method params add @PathVariable String display, */
     @GetMapping("/gallery")
-    public ModelAndView displayApartments(Model model,
-                                          @Param("filterCity") String city,
-                                          @Param("filterType") Apartment.Type type,
-                                          @Param("filterRooms") Integer rooms) {
+    public ModelAndView displayApartments (Model model, ApartmentDTO apartmentDTO) {
 
         /*if(display != null && display.equals("all")){
             model.addAttribute("flat", true);
@@ -65,11 +64,20 @@ public class ApartmentController {
             model.addAttribute(type.toString(),
                     (apartList.stream().filter(apartment -> apartment.getType().equals(type)).collect(Collectors.toList())));
         }*/
+        List<Apartment> apartments = new ArrayList<>();
 
+/*        if (apartmentDTO != null){
+            apartments = apartmentService.findByFilters(apartmentDTO);
+        }*/
+
+        apartments = apartmentService.findByFilters(apartmentDTO);
+           // apartments = apartmentRepo.findAll(Sort.by("city").descending());
         //List<Apartment> apartments = apartmentRepo.findByOrderByCityDesc();
-        List<Apartment> apartments = apartmentRepo.findAll(Sort.by("city").descending());
         ModelAndView modelAndView = new ModelAndView("gallery.html");
+        modelAndView.addObject("apartDTO", apartmentDTO);
         modelAndView.addObject("apartments", apartments);
+        modelAndView.addObject("apartTypes", Apartment.Type.values());
+
         return modelAndView;
     }
 
