@@ -40,33 +40,9 @@ public class ApartmentController {
     @GetMapping("/gallery")
     public ModelAndView displayApartments (Model model, ApartmentDTO apartmentDTO) {
 
-        /*if(display != null && display.equals("all")){
-            model.addAttribute("flat", true);
-            model.addAttribute("house", true);
-            model.addAttribute("mansion", true);
-        }
-        else if (display != null && display.equals("flat")){
-            model.addAttribute("flat", true);
-        }
-        else if (display != null && display.equals("house")){
-            model.addAttribute("house", true);
-        }
-        else if (display != null && display.equals("mansion")){
-            model.addAttribute("mansion", true);
-        }
-
-
-        Iterable<Apartment> apartments = apartmentRepo.findAll();
-        //Can't create a stream of Iterable, hence calling StreamSupport to create a list from iterable and then execute lambda logic with streams
-        List<Apartment> apartList = StreamSupport.stream(apartments.spliterator(), false).collect(Collectors.toList());
-        Apartment.Type[] types = Apartment.Type.values();
-        for (Apartment.Type type : types) {
-            model.addAttribute(type.toString(),
-                    (apartList.stream().filter(apartment -> apartment.getType().equals(type)).collect(Collectors.toList())));
-        }*/
         List<Apartment> apartments = new ArrayList<>();
 
-/*        if (apartmentDTO != null){
+        /*if (apartmentDTO != null){
             apartments = apartmentService.findByFilters(apartmentDTO);
         }*/
 

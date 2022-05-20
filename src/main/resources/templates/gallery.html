@@ -29,9 +29,14 @@
 
                     <label for="type">Type</label>
                     <select name="type" id="type" th:field="*{type}">
+                        <!--th:text="#{${'seedstarter.type.' + type}}"-->
+                        <option th:value="0"
+                                th:text="'ALL TYPES'">
+                        </option>
                         <option th:each="apartType : ${apartTypes}"
                                 th:text="${apartType.name}"
-                                th:value="${apartDTO.type}">
+                                th:value="${apartType}">
+
                         </option>
                     </select>
 

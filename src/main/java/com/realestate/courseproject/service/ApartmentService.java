@@ -34,21 +34,30 @@ public class ApartmentService {
         return (apartment, cq, cb) -> cb.like(apartment.get("address"), "%" + filterAddress + "%");
     }
 
-    static Specification<Apartment> filterBetween(Double upperBound, Double lowerBound) {
+    static Specification<Apartment> priceBetween(Double upperBound, Double lowerBound) {
         return (apartment, cq, cb) -> cb.between(apartment.get("price"), lowerBound, upperBound);
+    }
+
+    static Specification<Apartment> typeEquals(Apartment.Type type) {
+        return (apartment, cq, cb) -> cb.equal(apartment.get("type"), type);
     }
 
     public List<Apartment> findByFilters(ApartmentDTO apartmentDTO) {
 //        Specification<Apartment> s = cityLike(apartmentDTO.city)
 //                .and(addressLike(apartmentDTO.address))
 //                .and(filterBetween(apartmentDTO.upperBound, apartmentDTO.lowerBound));
-        Specification<Apartment> s = filterBetween(apartmentDTO._getUpperBound(), apartmentDTO._getLowerBound());
+        Specification<Apartment> s = priceBetween(apartmentDTO._getUpperBound(), apartmentDTO._getLowerBound());
+               // .and(typeEquals(apartmentDTO.getType()));
         if (!StringHelper.isEmpty(apartmentDTO.address)) {
             s = s.and(addressLike(apartmentDTO.address));
         }
         if (!StringHelper.isEmpty(apartmentDTO.city)) {
             s = s.and(cityLike(apartmentDTO.city));
         }
+        if (apartmentDTO.type != null) {
+            s = s.and(typeEquals(apartmentDTO.type));
+        }
+
         List<Apartment> matchingApartments = apartmentRepo.findAll(s);
         return matchingApartments;
     }
