@@ -42,6 +42,10 @@ public class ApartmentService {
         return (apartment, cq, cb) -> cb.equal(apartment.get("type"), type);
     }
 
+    static Specification<Apartment> roomsEquals(Integer rooms) {
+        return (apartment, cq, cb) -> cb.equal(apartment.get("rooms"), rooms);
+    }
+
     public List<Apartment> findByFilters(ApartmentDTO apartmentDTO) {
 //        Specification<Apartment> s = cityLike(apartmentDTO.city)
 //                .and(addressLike(apartmentDTO.address))
@@ -53,6 +57,9 @@ public class ApartmentService {
         }
         if (!StringHelper.isEmpty(apartmentDTO.city)) {
             s = s.and(cityLike(apartmentDTO.city));
+        }
+        if (apartmentDTO.rooms != null){
+            s = s.and(roomsEquals(apartmentDTO.rooms));
         }
         if (apartmentDTO.type != null) {
             s = s.and(typeEquals(apartmentDTO.type));
