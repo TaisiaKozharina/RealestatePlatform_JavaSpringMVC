@@ -8,15 +8,21 @@
 <body>
 
     <div th:replace="header :: header"></div>
-    <div class="main">
-        <h1 th:text="'Hello, ' + ${username} + '. Here will be cute gallery with our latest offers'"></h1>
-        <h1 th:text="'Currently we have ' + ${apartCount} + ' unique apartment options!'"></h1>
-        <h1 th:text="'There are ' + ${userCount} + ' active users on our website! Become one of us! there will be a link to registration page'"></h1>
+
+    <div class="home-subheader">
+
+        <div class="subheader-content">
+            <h1>Hello, <span th:text="${username}"/>. Here will be cute gallery with our latest offers.</h1>
+            <h1>Currently we have <span th:text="${apartCount}"/> unique apartment options!</h1>
+            <h1>There are <span th:text="${userCount}"/> active users on our website! Become one of us! there will be a link to registration page.</h1>
+        </div>
+        <img src="img/homepanorama.jpg">
     </div>
-    <br/>
-    <!--<div><a th:href="@{/gallery(flat='true', house='true', mansion='true')}">See our available apartments!</a></div>-->
-    <div><a th:href="@{/gallery}">See our available apartments!</a></div>
-    <br/>
+
+    <div class="main">
+        <div><a th:href="@{/gallery}">See our available apartments!</a></div>
+    </div>
+
     <div th:replace="footer :: footer"></div>
 
 </body>

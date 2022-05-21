@@ -10,9 +10,10 @@
 <div th:replace="header :: header"></div>
 <div class="main">
     <div>
-      <h3 class="h2">Oops... Looks like you're lost</h3>
+      <h3 class="h2">Oops... Looks like you're lost.</h3>
       <p th:text="${'Error Message - ' + errorMessage}"></p>
-      <a th:href="@{/home}">Go to Home</a>
+        <img src="./img/errorpage.gif"/>
+      <a th:href="@{/home}">Go to Home Page</a>
     </div>
 </div>
 

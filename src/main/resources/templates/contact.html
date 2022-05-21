@@ -4,26 +4,59 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
     <div th:replace="header :: header"></div>
 
     <div class="main">
 
-        <div th:each="error : ${#fields.errors('contact.*')}" th:text="${error}"></div>
+
         <!--${#fields.errors('contact.*')} will fetch error available inside fields of bean Contact, iterating through error list -->
-        <form action="saveMsg" method="post" th:object="${contact}">
-            <input type="text" th:field="*{name}" placeholder="Your Name" />
-            <input type="text" th:field="*{mobileNum}" placeholder="Your Mobile Number"/>
-            <input type="text" th:field="*{email}" placeholder="Your Email" />
-            <input type="text" th:field="*{subject}" placeholder="Subject"/>
-            <textarea th:field="*{message}" placeholder="Type your message here"></textarea>
+        <form action="saveMsg" method="post" th:object="${contact}" class="form contact">
+
+            <div th:each="error : ${#fields.errors('contact.*')}" th:text="${error}"></div>
+            <div class="row">
+                <div class="col form-floating">
+                    <input type="text" id="name" class="form-control" th:field="*{name}" placeholder="Your Name"/>
+                    <label for="name">Name</label>
+                </div>
+
+                <div class="col form-floating">
+                    <input type="text" id="subject" class="form-control" th:field="*{subject}" placeholder="Subject"/>
+                    <label for="subject">Subject</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-floating">
+                    <input type="text" id="mobile" class="form-control" th:field="*{mobileNum}"
+                           placeholder="Your Mobile Number"/>
+                    <label for="mobile">Mobile Number</label>
+                </div>
+
+                <div class="col form-floating">
+                    <input type="text" id="email" class="form-control" th:field="*{email}" placeholder="Your Email"/>
+                    <label for="email">Email</label>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col form-floating">
+                    <textarea id="message" class="form-control" th:field="*{message}"
+                              placeholder="Type your message here"></textarea>
+                    <label for="message">Your message</label>
+                </div>
+            </div>
+
             <button>Send Message</button>
         </form>
 
     </div>
 
     <div th:replace="footer :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 </body>
 </html>

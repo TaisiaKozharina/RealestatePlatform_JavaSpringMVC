@@ -1,54 +1,102 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 
 *{
 font-family: 'Playfair Display';
+font-weight: normal;
 letter-spacing: .1rem;
 margin:0;
 padding:0;
 }
 
+html{
+height:100%; /*needed for footer. plain magic*/
+}
+
+body{
+background: #F5E39E !important;
+display: flex;
+flex-direction: column;
+min-height: 100%;
+}
+
+.main{
+width:80%;
+margin: 50px auto;
+}
+
 footer{
 width:100%;
-bottom:0;
+margin-top: auto;
+/*bottom:0;*/
+/*flex-shrink: 0;*/
 background-color: #191512;
 color: #F5E39E;
 text-align: center;
 }
+
+
+/*--------HEADER AND NAVBAR-------------*/
 
 header{
-width:100%;
+/*width:100%;*/
 background-color: #191512;
 color: #F5E39E;
-display: inline-block;
-top:0;
-text-align: center;
+display: flex;
+justify-content: space-between;
+align-items: center;
+padding: 5px 5%; /*30px from top and bottom, 10% from sides*/
+/*top:0;
+text-align: center;*/
 }
 
-header .header nav li{
-float: right;
-margin-right: 60px;
-font-weight: 700;
-}
-
-header .nav-logo{
-float: left;
-margin-left: 60px;
+header .nav-links{
+list-style: none;
 }
 
 header .logo{
-width: 60px;
+display: flex;
+align-items: center;
 }
+
+header .logo .superheader{
+font-size: 2.5em;
+font-weight: 700;
+}
+header .logo .smaller-superheader{
+font-family: 'Tangerine';
+font-size: 2em;
+/*letter-spacing: 3px;
+word-spacing: 7px;*/
+}
+
+header .nav-links li,
+header .logo .logo-l{
+display: inline-block;
+padding: 0px 20px;
+}
+
+header .nav-links li{
+font-size: 24px;
+}
+
+/*header li a{
+color:white;
+text-decoration: none;
+}*/
 
 header a:link,
 header a:visited{
 color: #F5E39E;
 text-decoration: none;
+font-weight: bold;
 }
 
 header a:hover{
 color: white;
 }
-/*LINK ANIMATION*/
+/*---------------------LINK ANIMATION-------------------------*/
 .nav-link {
   background-image: linear-gradient(to right, #FA9E0D, #FA9E0D 50%, #F5E39E 50%);
   background-size: 200% 100%;
@@ -79,44 +127,57 @@ background-position: 0;
 nav-link:hover::before{
   width: 100%;
 }
-/*--------------*/
+/*-------------------------------------------------------------*/
 
-.header ul{
-list-style-type: none;
-font-size: 20px;
+
+
+
+/*---------HOMEPAGE SUBHEADER------------*/
+.home-subheader{
+position: relative;
+overflow: hidden;
+width: 100%;
+/*height: 25em;*/
+background: #c47a04;
+display: flex;
+justify-content: center;
 }
 
-header .superheader{
-font-size: 2em;
-font-weight: 700;
-}
-header .smaller-superheader{
-font-size: 1em;
-font-style: italic;
-text-transform: uppercase;
-}
-
-.main{
-padding-top:10em;
-width: 70%;
-margin: 0 auto; /* Center the DIV horizontally */
-min-height: 100vh;
+.home-subheader .subheader-content{
+width:60%;
+padding: 100px;
+position: relative;
+z-index: 2;
+color: white;
+text-align:center;
+text-justify: inter-word;
 }
 
-header li a{
-color:white;
-text-decoration: none;
+.home-subheader img{
+position: absolute;
+left: 0;
+top: 0;
+width: 100%;
+height: auto;
+opacity: 0.5;
 }
 
-/*----------GALLERY------------*/
+/*-----------------------------------*/
 
-.gallery-img{
-    width:  300px;
-    height: 300px;
-    object-fit: cover;
+
+/*----------------GALLERY-----------------*/
+.cards .card{
+margin-top: 30px;
 }
-/*------------------------------*/
 
+.card .wishlist-btn{
+background-color: #fc0330;
+padding: 10px;
+color: #fff;
+border-radius: 5px;
+border: 2px solid #db021f;
+}
+/*----------------------------------------*/
 
 /*---------MESSAGES TABLE SORTING-----------*/
 table.dataTable > thead > tr > th:not(.sorting_disabled),
@@ -187,3 +248,26 @@ th > a:hover {
 color: red;
 }
 /*----------------------------------------*/
+
+/*----------FORMS--------------------------*/
+form{
+padding:20px;
+}
+
+form .form-floating{
+margin-top: 20px;
+}
+
+form .form-floating label{
+margin-left: 5%;
+}
+
+form button{
+height: auto;
+width: auto;
+padding: 10px;
+border-radius: 5px;
+background-color: #FA9E0D;
+border: 2px #191512;
+}
+/*-----------------------------------------*/
