@@ -21,26 +21,27 @@
 
         <nav>
             <ul class="nav-links">
-                <li sec:authorize="isAnonymous()">
+                <li>
                     <a class="nav-link" th:href="@{/home}" aria-current="page">Home</a>
                 </li>
                 <li sec:authorize="isAnonymous()">
                     <a class="nav-link" th:href="@{/gallery}">Gallery</a>
                 </li>
-                <li sec:authorize="isAnonymous()">
+                <li  sec:authorize="isAuthenticated()">
+                    <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
+                </li>
+                <li>
                     <a class="nav-link" th:href="@{/about}">About Us</a>
                 </li>
                 <li>
                     <a class="nav-link" th:href="@{/contact}">Contact</a>
                 </li>
                 <li  sec:authorize="isAnonymous()">
-                    <a class="nav-link" th:href="@{/login}">LOG IN</a>
+                    <a class="nav-link" th:href="@{/login}">Log in</a>
                 </li>
+
                 <li  sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/dashboard}">Dashboard</a>
-                </li>
-                <li  sec:authorize="isAuthenticated()">
-                    <a class="nav-link" th:href="@{/logout}">LOG OUT</a>
+                    <a class="nav-link" th:href="@{/logout}">Log out</a>
                 </li>
             </ul>
         </nav>

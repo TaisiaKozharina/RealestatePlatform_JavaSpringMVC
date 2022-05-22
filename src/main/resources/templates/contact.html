@@ -13,7 +13,7 @@
 
 
         <!--${#fields.errors('contact.*')} will fetch error available inside fields of bean Contact, iterating through error list -->
-        <form action="saveMsg" method="post" th:object="${contact}" class="form contact">
+        <form action="saveMsg" method="post" th:object="${contact}" id="contact">
 
             <div th:each="error : ${#fields.errors('contact.*')}" th:text="${error}"></div>
             <div class="row">

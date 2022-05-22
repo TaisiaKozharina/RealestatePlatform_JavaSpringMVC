@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Gallery</title>
     <link rel="stylesheet" href="/style.css">
-    <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
     <script src="https://kit.fontawesome.com/b6ee98f5fe.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -14,6 +14,7 @@
     <div class="main">
             <div>
                 <h5>Apartment List</h5>
+                <h5 th:text="${user?.username}"></h5>
 <!--            <h3>Filter panel</h3>-->
                 <form th:action="@{/gallery}" th:object="${apartDTO}" class="form filter">
                     <h4>Filter by:</h4>
@@ -73,39 +74,76 @@
 
                 <div class="container cards">
                     <div class="row">
-                        <div class="col">
-                            <div th:each="apartment,iterStat : ${apartments}">
-                                <div th:if="${iterStat.odd}" class="card">
-                                    <img class="card-img-top" th:src="@{/img/{image}(image=${apartment.photo_url})}"
-                                         onerror="this.onerror=null;this.src='/img/default.jpg';">
-                                    <div class="card-body">
-                                    <h2 class="card-title" th:text="${apartment.city} + ', ' + ${apartment.address}"></h2>
-                                        <h6 class="card-text" th:text="${apartment.size}"></h6>
-                                        <h6 class="card-text" th:text="${apartment.description}"></h6>
-                                        <h6 class="card-text" th:text="${apartment.price}"></h6>
-                                        <button class="wishlist-btn"><i class="fa-solid fa-heart"></i>Add to WL</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div th:each="apartment,iterStat : ${apartments}">
-                                <div th:if="${iterStat.even}" class="card">
+                            <div class="col-sm-6" th:each="apartment,iterStat : ${apartments}">
+                                <div class="card"> <!--th:if="${iterStat.odd}" -->
                                     <img class="card-img-top" th:src="@{/img/{image}(image=${apartment.photo_url})}"
                                          onerror="this.onerror=null;this.src='/img/default.jpg';">
                                     <div class="card-body">
                                         <h2 class="card-title" th:text="${apartment.city} + ', ' + ${apartment.address}"></h2>
+                                        <i class="bi bi-bounding-box"></i>
                                         <h6 class="card-text" th:text="${apartment.size}"></h6>
-                                        <h6 class="card-text" th:text="${apartment.description}"></h6>
+                                        <i class="bi bi-info-circle-fill"></i>
+                                        <h6 class="card-text text-truncate" th:text="${apartment.description}"></h6>
+                                        <i class="bi bi-currency-exchange"></i>
                                         <h6 class="card-text" th:text="${apartment.price}"></h6>
-                                        <button class="wishlist-btn"><i class="fa-solid fa-heart"></i>Add to WL</button>
+                                        <div th:if="${user}">
+                                            <div sec:authorize="isAuthenticated()"
+                                                 th:switch="${#lists.size(apartment.users)}">
+                                                <div th:case="'0'">
+                                                    <button class="wishlist-btn">
+                                                        <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
+                                                            <i class="fa-solid fa-heart"></i>
+                                                            Add to WL
+                                                        </a>
+                                                    </button>
+                                                </div>
+                                                <div th:case="*">
+                                                    <div th:each="likedBy : ${apartment.users}">
+                                                        <button th:if="likedBy.userID == ${user.userID}"
+                                                                class="wishlist-btn">
+                                                            <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
+                                                                <i class="fa-solid fa-heart"></i>
+                                                                Add to WL
+                                                            </a>
+                                                        </button>
+                                                        <button th:unless="likedBy.userID == ${user.userID}"
+                                                                class="unwishlist-btn">
+                                                            <a th:href="@{/removeApartFromWishlist(id=${apartment.code})}">
+                                                                <i class="fa-solid fa-heart-crack"></i>
+                                                                Remove from WL
+                                                            </a>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div th:unless="${user}">
+                                            <button class="wishlist-btn" th:id="'toastBtn'+ ${iterStat.index}">
+                                                <i class="fa-solid fa-heart"></i>
+                                                Add to WL
+                                            </button>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
                         </div>
+
                     </div>
                 </div>
 
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                        <div class="toast-header">
+                            <!--<img src="..." class="rounded me-2" alt="...">-->
+                            <strong class="me-auto">Greetings from @REState</strong>
+                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                        </div>
+                        <div class="toast-body">
+                            Want to add this apartment to wishlist?
+                            <button type="button" class="btn btn-primary btn-sm"><a th:href="@{/login}">Log in</a></button>
+                        </div>
+                    </div>
+                </div>
 
             </div>
     </div>
@@ -113,5 +151,17 @@
     <div th:replace="footer :: footer"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+<script>
+var toastTrigger = document.querySelectorAll('[id*="toastBtn"]');
+console.log(toastTrigger);
+const toastLiveExample = document.getElementById('liveToast');
+
+for (var i = 0; i < toastTrigger.length; i++) {
+    toastTrigger[i].addEventListener('click', () => {
+    const toast = new bootstrap.Toast(toastLiveExample)
+    toast.show();
+    })
+}
+</script>
 </body>
 </html>

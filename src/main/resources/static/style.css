@@ -173,9 +173,28 @@ margin-top: 30px;
 .card .wishlist-btn{
 background-color: #fc0330;
 padding: 10px;
-color: #fff;
+color: #fff !important;
 border-radius: 5px;
 border: 2px solid #db021f;
+}
+
+.card .unwishlist-btn{
+background-color: #7303fc;
+padding: 10px;
+color: #fff !important;
+border-radius: 5px;
+border: 2px solid #3c0185;
+}
+
+.card a:link,
+.card a:visited{
+color: #dbdbd9;
+text-decoration: none;
+font-weight: bold;
+}
+
+.card a:hover{
+color: #fff;
 }
 /*----------------------------------------*/
 
@@ -258,9 +277,12 @@ form .form-floating{
 margin-top: 20px;
 }
 
-form .form-floating label{
+/*form .form-floating label,
+form .form-floating input,
+form .row .form-floating label
+form .row .form-floating input{
 margin-left: 5%;
-}
+}*/
 
 form button{
 height: auto;
@@ -269,5 +291,11 @@ padding: 10px;
 border-radius: 5px;
 background-color: #FA9E0D;
 border: 2px #191512;
+}
+
+#profile-edit{
+width:40%;
+margin:0;
+align-items: center;
 }
 /*-----------------------------------------*/
