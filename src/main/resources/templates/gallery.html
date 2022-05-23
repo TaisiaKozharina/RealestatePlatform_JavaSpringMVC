@@ -76,16 +76,21 @@
                     <div class="row">
                             <div class="col-sm-6" th:each="apartment,iterStat : ${apartments}">
                                 <div class="card"> <!--th:if="${iterStat.odd}" -->
-                                    <img class="card-img-top" th:src="@{/img/{image}(image=${apartment.photo_url})}"
-                                         onerror="this.onerror=null;this.src='/img/default.jpg';">
+                                    <a type="button" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal'+${apartment.code}"> <!-- data-bs-target="#exampleModal"-->
+                                        <img class="card-img-top" th:src="@{/img/{image}(image=${apartment.photo_url})}"
+                                             onerror="this.onerror=null;this.src='/img/default.jpg';">
+                                        <div class="card-body">
+                                            <h2 class="card-title"
+                                                th:text="${apartment.city} + ', ' + ${apartment.address}"></h2>
+                                            <i class="bi bi-bounding-box"></i>
+                                            <h6 class="card-text" th:text="${apartment.size}"></h6>
+                                            <i class="bi bi-info-circle-fill"></i>
+                                            <h6 class="card-text text-truncate" th:text="${apartment.description}"></h6>
+                                            <i class="bi bi-currency-exchange"></i>
+                                            <h6 class="card-text" th:text="${apartment.price}"></h6>
+                                        </div>
+                                    </a>
                                     <div class="card-body">
-                                        <h2 class="card-title" th:text="${apartment.city} + ', ' + ${apartment.address}"></h2>
-                                        <i class="bi bi-bounding-box"></i>
-                                        <h6 class="card-text" th:text="${apartment.size}"></h6>
-                                        <i class="bi bi-info-circle-fill"></i>
-                                        <h6 class="card-text text-truncate" th:text="${apartment.description}"></h6>
-                                        <i class="bi bi-currency-exchange"></i>
-                                        <h6 class="card-text" th:text="${apartment.price}"></h6>
                                         <div th:if="${user}">
                                             <div sec:authorize="isAuthenticated()"
                                                  th:switch="${#lists.size(apartment.users)}">
@@ -117,16 +122,36 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                         <div th:unless="${user}">
                                             <button class="wishlist-btn" th:id="'toastBtn'+ ${iterStat.index}">
                                                 <i class="fa-solid fa-heart"></i>
                                                 Add to WL
                                             </button>
+                                        </div>
 
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" th:attr="id='exampleModal'+${apartment.code}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--id="exampleModal"-->
+                                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel"
+                                                    th:text="${apartment.city} + ', ' + ${apartment.address}"></h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <img th:src="@{/img/{image}(image=${apartment.photo_url})}"
+                                                     onerror="this.onerror=null;this.src='/img/default.jpg';">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                        </div>
+                            </div>
 
                     </div>
                 </div>
@@ -163,5 +188,11 @@ for (var i = 0; i < toastTrigger.length; i++) {
     })
 }
 </script>
+
+<!--<script>
+document.querySelectorAll('[class*="wishlist-btn"]').addEventListener('click', e=>{
+  e.stopImmediatePropagation();
+});
+</script>-->
 </body>
 </html>

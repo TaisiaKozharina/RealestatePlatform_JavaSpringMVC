@@ -176,6 +176,7 @@ padding: 10px;
 color: #fff !important;
 border-radius: 5px;
 border: 2px solid #db021f;
+z-index:2000;
 }
 
 .card .unwishlist-btn{
@@ -184,6 +185,7 @@ padding: 10px;
 color: #fff !important;
 border-radius: 5px;
 border: 2px solid #3c0185;
+z-index:2000;
 }
 
 .card a:link,
