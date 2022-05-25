@@ -4,12 +4,75 @@
     <meta charset="UTF-8">
     <title>About Us</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
 </head>
 <body>
     <div th:replace="header :: header"></div>
+
     <div class="main">
-        <h1 th:text="'The About Us page is in the process of development!' "></h1>
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-img-container"><img src="img/ABOUT1.jpeg" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><strong>Consulting</strong></h5>
+                        <p>If you are not familiar with real estate market specifics, we are here to help you to choose the housing to fit your needs and budget. Our team of professionals will schedule a consultation to help you.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-img-container"><img src="img/ABOUT3.jpeg" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><strong>Need help with moving in?</strong></h5>
+                        <p>No need to handle it yourself. REState has a worldwide 24/7 relocation service, which is completely free for all our clients.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-img-container"><img src="img/ABOUT4.jpeg" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><strong>Found apartment of you dream?</strong></h5>
+                        <p>For all apartments in all countries listed on our website, we have an assigned agent, that will meet and guide you through it live or via online session.</p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-img-container"><img src="img/ABOUT5.jpg" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><strong>Not just a photo gallery</strong></h5>
+                        <p>Choose apartment you like and want to know more about. Contact us. We will provide additional information such as building plan, official documents and anything else that you would need to know before purchasing. </p>
+                    </div>
+                </div>
+
+                <div class="carousel-item">
+                    <div class="carousel-img-container"><img src="img/ABOUT2.jpeg" class="d-block w-100" alt="..."></div>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5><strong>Long-term support</strong></h5>
+                        <p>REState will be ready to help you solve all housing-related issues for whole 2 years after purchasing. We will make sure you are satisfied, settled down and ready to live a new happy live in the apartment of your dreams.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
     </div>
+
     <div th:replace="footer :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
 </body>
 </html>

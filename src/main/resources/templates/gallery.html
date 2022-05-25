@@ -13,9 +13,7 @@
 
     <div class="main">
             <div>
-                <h5>Apartment List</h5>
-                <h5 th:text="${user?.username}"></h5>
-<!--            <h3>Filter panel</h3>-->
+<!--                <h5>Apartment List</h5>-->
                 <form th:action="@{/gallery}" th:object="${apartDTO}" class="form filter">
                     <h4>Filter by:</h4>
 
@@ -76,18 +74,26 @@
                     <div class="row">
                             <div class="col-sm-6" th:each="apartment,iterStat : ${apartments}">
                                 <div class="card"> <!--th:if="${iterStat.odd}" -->
-                                    <a type="button" data-bs-toggle="modal" th:attr="data-bs-target='#exampleModal'+${apartment.code}"> <!-- data-bs-target="#exampleModal"-->
+                                    <a type="button" data-bs-toggle="modal" th:attr="data-bs-target='#cardModal'+${apartment.code}"> <!-- data-bs-target="#exampleModal"-->
                                         <img class="card-img-top" th:src="@{/img/{image}(image=${apartment.photo_url})}"
                                              onerror="this.onerror=null;this.src='/img/default.jpg';">
                                         <div class="card-body">
                                             <h2 class="card-title"
-                                                th:text="${apartment.city} + ', ' + ${apartment.address}"></h2>
-                                            <i class="bi bi-bounding-box"></i>
-                                            <h6 class="card-text" th:text="${apartment.size}"></h6>
-                                            <i class="bi bi-info-circle-fill"></i>
-                                            <h6 class="card-text text-truncate" th:text="${apartment.description}"></h6>
-                                            <i class="bi bi-currency-exchange"></i>
-                                            <h6 class="card-text" th:text="${apartment.price}"></h6>
+                                                th:utext="'&lt;strong&gt;' + ${apartment.city} + '&lt;/strong&gt;, ' + ${apartment.address}"></h2>
+                                            <div class="row">
+                                                <i class="col-md-auto bi bi-bounding-box"></i>
+                                                <h5 class="col card-text"
+                                                    th:text="${#numbers.formatDecimal(apartment.size, 0, 1)} + ' square meters'"></h5>
+                                            </div>
+                                            <div class="row">
+                                                <i class="col-md-auto bi bi-info-circle-fill"></i>
+                                                <h5 class="col card-text text-truncate"
+                                                    th:text="${apartment.description}"></h5>
+                                            </div>
+                                            <div class="row">
+                                                <i class="col-md-auto bi bi-currency-exchange"></i>
+                                                <h5 class="col card-text" th:text="${apartment.price} + ' €'"></h5>
+                                            </div>
                                         </div>
                                     </a>
                                     <div class="card-body">
@@ -98,7 +104,7 @@
                                                     <button class="wishlist-btn">
                                                         <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
                                                             <i class="fa-solid fa-heart"></i>
-                                                            Add to WL
+                                                            Add to WishList
                                                         </a>
                                                     </button>
                                                 </div>
@@ -108,14 +114,14 @@
                                                                 class="wishlist-btn">
                                                             <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
                                                                 <i class="fa-solid fa-heart"></i>
-                                                                Add to WL
+                                                                Add to WishList
                                                             </a>
                                                         </button>
                                                         <button th:unless="likedBy.userID == ${user.userID}"
                                                                 class="unwishlist-btn">
                                                             <a th:href="@{/removeApartFromWishlist(id=${apartment.code})}">
                                                                 <i class="fa-solid fa-heart-crack"></i>
-                                                                Remove from WL
+                                                                Remove from WishList
                                                             </a>
                                                         </button>
                                                     </div>
@@ -126,27 +132,33 @@
                                         <div th:unless="${user}">
                                             <button class="wishlist-btn" th:id="'toastBtn'+ ${iterStat.index}">
                                                 <i class="fa-solid fa-heart"></i>
-                                                Add to WL
+                                                Add to WishList
                                             </button>
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <div class="modal fade" th:attr="id='exampleModal'+${apartment.code}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--id="exampleModal"-->
+                                <div class="modal fade" th:attr="id='cardModal'+${apartment.code}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> <!--id="exampleModal"-->
                                     <div class="modal-dialog modal-dialog-centered modal-xl">
                                         <div class="modal-content">
                                             <div class="modal-header">
                                                 <h5 class="modal-title" id="exampleModalLabel"
-                                                    th:text="${apartment.city} + ', ' + ${apartment.address}"></h5>
+                                                    th:utext="'&lt;strong&gt;' + ${apartment.city} + '&lt;/strong&gt;, ' + ${apartment.address}"></h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body">
-                                                <img th:src="@{/img/{image}(image=${apartment.photo_url})}"
+                                                <img class="img-fluid"
+                                                     th:src="@{/img/{image}(image=${apartment.photo_url})}"
                                                      onerror="this.onerror=null;this.src='/img/default.jpg';">
                                             </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <div class="modal-footer row">
+                                                <div class="col">
+                                                    <h5 class="card-text" th:text="${apartment.description}"></h5>
+                                                </div>
+                                                <div class="col-md-auto">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -159,7 +171,6 @@
                 <div class="toast-container position-fixed bottom-0 end-0 p-3">
                     <div id="liveToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
                         <div class="toast-header">
-                            <!--<img src="..." class="rounded me-2" alt="...">-->
                             <strong class="me-auto">Greetings from @REState</strong>
                             <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
@@ -188,11 +199,5 @@ for (var i = 0; i < toastTrigger.length; i++) {
     })
 }
 </script>
-
-<!--<script>
-document.querySelectorAll('[class*="wishlist-btn"]').addEventListener('click', e=>{
-  e.stopImmediatePropagation();
-});
-</script>-->
 </body>
 </html>

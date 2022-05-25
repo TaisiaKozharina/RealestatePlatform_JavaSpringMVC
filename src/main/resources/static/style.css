@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Tangerine:wght@700&display=swap');
 
@@ -96,7 +96,7 @@ font-weight: bold;
 header a:hover{
 color: white;
 }
-/*---------------------LINK ANIMATION-------------------------*/
+/*-----------------LINK ANIMATION--------------------*/
 .nav-link {
   background-image: linear-gradient(to right, #FA9E0D, #FA9E0D 50%, #F5E39E 50%);
   background-size: 200% 100%;
@@ -127,18 +127,18 @@ background-position: 0;
 nav-link:hover::before{
   width: 100%;
 }
-/*-------------------------------------------------------------*/
+/*------------------------------------------------------*/
 
 
 
 
-/*---------HOMEPAGE SUBHEADER------------*/
+/*----------------HOMEPAGE & SUBHEADER-------------------*/
 .home-subheader{
 position: relative;
 overflow: hidden;
 width: 100%;
 /*height: 25em;*/
-background: #c47a04;
+background: #824a01;
 display: flex;
 justify-content: center;
 }
@@ -153,22 +153,71 @@ text-align:center;
 text-justify: inter-word;
 }
 
-.home-subheader img{
+.home-subheader #back-pic{
 position: absolute;
 left: 0;
 top: 0;
 width: 100%;
 height: auto;
 opacity: 0.5;
+min-height: 620px;
+min-width: auto;
 }
 
-/*-----------------------------------*/
+.home-btn {
+cursor: pointer;
+appearance: none;
+background-color: #191512;
+border: 2px solid #191512;
+border-radius: 15px;
+box-sizing: border-box;
+color: #F5E39E;
+display: inline-block;
+font-size: 16px;
+/*margin: 0;
+min-height: 60px;
+min-width: 0;*/
+/*outline: none;*/
+padding: 16px 24px;
+text-align: center;
+text-decoration: none;
+transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+user-select: none;
+-webkit-user-select: none;
+touch-action: manipulation;
+will-change: transform;
+}
+
+.home-btn:disabled {
+pointer-events: none;
+}
+
+.home-btn:hover {
+box-shadow: rgba(0, 0, 0, 0.25) 0 8px 15px;
+transform: translateY(-5px);
+}
+
+.home-btn:active {
+box-shadow: none;
+transform: translateY(0);
+}
+
+/*-----------------------------------------*/
 
 
 /*----------------GALLERY-----------------*/
 .cards .card{
 margin-top: 30px;
 }
+
+.card .card-img-top{
+height:40vh;
+object-fit: cover;
+}
+
+/*.card .card-img-top img{
+
+}*/
 
 .card .wishlist-btn{
 background-color: #fc0330;
@@ -198,7 +247,28 @@ font-weight: bold;
 .card a:hover{
 color: #fff;
 }
+
+/*.modal{
+text-align: center;
+}*/
+/*.modal-content {
+width:auto !important;
+}*/
+
+.modal-body{
+text-align: center;
+max-height: 75vh;
+max-width: 75vw;
+/*overflow-y: auto;*/
+}
+
+.modal-body img{
+width:auto;
+height:100%;
+}
 /*----------------------------------------*/
+
+
 
 /*---------MESSAGES TABLE SORTING-----------*/
 table.dataTable > thead > tr > th:not(.sorting_disabled),
@@ -227,6 +297,7 @@ table.dataTable > thead .sorting_desc_disabled:after {
   display: block;
   opacity: 0.3;
 }
+
 table.dataTable > thead .sorting:before,
 table.dataTable > thead .sorting_asc:before,
 table.dataTable > thead .sorting_desc:before,
@@ -264,27 +335,26 @@ th > a:hover {
 }
 /*------------------------------------------*/
 
-/*---------PAGINATION---------------------*/
+/*-------------PAGINATION-------------------*/
 .pagination a .active{
 color: red;
 }
-/*----------------------------------------*/
+/*-----------------------------------------*/
 
-/*----------FORMS--------------------------*/
+/*-----------------FORMS-------------------*/
 form{
 padding:20px;
+
 }
 
 form .form-floating{
 margin-top: 20px;
+left: auto !important;
 }
 
-/*form .form-floating label,
-form .form-floating input,
-form .row .form-floating label
-form .row .form-floating input{
-margin-left: 5%;
-}*/
+form .form-floating label{
+left: auto !important;
+}
 
 form button{
 height: auto;
@@ -299,5 +369,43 @@ border: 2px #191512;
 width:40%;
 margin:0;
 align-items: center;
+}
+
+.form-wrapper{
+text-align: center;
+}
+
+#login {
+width: 50%;
+display: inline-block;
+text-align: left;
+}
+/*--------------------------------------*/
+
+/*----------------ABOUT PAGE---------------*/
+.carousel-item{
+width: 100vw;
+height: 80vh;
+}
+
+.carousel-img-container img{
+object-fit: cover;
+}
+
+.carousel-img-container {
+display: inline-block;
+position: relative;
+width: 100%;
+height: 100%;
+}
+
+.carousel-img-container::after {
+content: '';
+position: absolute;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+box-shadow:0px -150px 100px 0px #191512 inset;
 }
 /*-----------------------------------------*/

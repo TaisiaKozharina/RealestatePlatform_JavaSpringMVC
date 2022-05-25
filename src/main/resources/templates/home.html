@@ -8,19 +8,22 @@
 <body>
 
     <div th:replace="header :: header"></div>
-
     <div class="home-subheader">
-
         <div class="subheader-content">
-            <h1>Hello, <span th:text="${username}"/>. Here will be cute gallery with our latest offers.</h1>
-            <h1>Currently we have <span th:text="${apartCount}"/> unique apartment options!</h1>
-            <h1>There are <span th:text="${userCount}"/> active users on our website! Become one of us! there will be a link to registration page.</h1>
+            <h1>REState is a real estate gallery application that also provides various services. We do our best to make the process of searching for ideal housing the most comfortable for you by providing consultations, regularly updating our database of apartments and staying on touch with our clients!</h1>
+            <br/>
+            <h2>Currently we have <span th:text="${apartCount}"/> unique apartment options!</h2>
+            <h2>There are <span th:text="${userCount}"/> active users on our website! </h2>
+            <img src="img/logo.png" style="width: 50px; height: 50px;">
         </div>
-        <img src="img/homepanorama.jpg">
+        <img id="back-pic" src="img/homepanorama.jpg">
     </div>
 
     <div class="main">
-        <div><a th:href="@{/gallery}">See our available apartments!</a></div>
+        <h1>Hello, <span th:text="${username}"/>.</h1>
+        <a class="home-btn" th:href="@{/gallery}">Browse available apartments!</a>
+        <a class="home-btn" th:href="@{/login}">Become one of us!</a>
+        <a class="home-btn" th:href="@{/contact}">Contact us!</a>
     </div>
 
     <div th:replace="footer :: footer"></div>
