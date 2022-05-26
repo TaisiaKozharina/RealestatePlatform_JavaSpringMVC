@@ -15,9 +15,9 @@
         <br/><br/>
 
         <div sec:authorize="hasRole('ROLE_ADMIN')"> <!--By default Spring Security will add prefix "ROLE_" to the actual role name-->
-            <a th:href="@{/displayMessages/page/1?sortField=name&sortDir=desc}"><h4>Display Contact Messages</h4></a>
-            <a th:href="@{/admin/displayApartments}"><h4>Display Apartments</h4></a>
-            <a th:href="@{/admin/displayUsers}"><h4>Display Users</h4></a>
+            <a class="home-btn" th:href="@{/displayMessages/page/1?sortField=name&sortDir=desc}"><h4>Display Contact Messages</h4></a>
+            <a class="home-btn" th:href="@{/admin/displayApartments}"><h4>Display Apartments</h4></a>
+            <a class="home-btn" th:href="@{/admin/displayUsers}"><h4>Display Users</h4></a>
         </div>
 
         <div sec:authorize="hasRole('ROLE_USER')">

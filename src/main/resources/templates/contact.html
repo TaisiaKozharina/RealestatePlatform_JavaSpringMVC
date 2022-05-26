@@ -12,14 +12,14 @@
     <div class="main">
 
 
+        <div class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('contact.*')}" th:text="${error}" />
         <!--${#fields.errors('contact.*')} will fetch error available inside fields of bean Contact, iterating through error list -->
-        <form action="saveMsg" method="post" th:object="${contact}" id="contact">
+        <form action="/saveMsg" method="post" th:object="${contact}" id="contact">
 
-            <div th:each="error : ${#fields.errors('contact.*')}" th:text="${error}"></div>
             <div class="row">
                 <div class="col form-floating">
                     <input type="text" id="name" class="form-control" th:field="*{name}" placeholder="Your Name"/>
-                    <label for="name">Name</label>
+                    <label for="name">Your name</label>
                 </div>
 
                 <div class="col form-floating">
@@ -37,7 +37,7 @@
 
                 <div class="col form-floating">
                     <input type="text" id="email" class="form-control" th:field="*{email}" placeholder="Your Email"/>
-                    <label for="email">Email</label>
+                    <label for="email">Personal E-mail</label>
                 </div>
             </div>
 

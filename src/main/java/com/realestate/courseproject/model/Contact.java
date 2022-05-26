@@ -31,7 +31,7 @@ public class Contact extends BaseEntity {
     private String name;
 
     @NotBlank(message="Mobile number must not be blank")
-    @Pattern(regexp="(^$|[0-9]{10})",message = "Mobile number must be 10 digits")
+    @Pattern(regexp="(^$|[0-9]{10})", message = "Mobile number must be 10 digits")
     @Column(name = "mobile_num")
     private String mobileNum;
 

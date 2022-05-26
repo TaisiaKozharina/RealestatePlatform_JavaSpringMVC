@@ -5,6 +5,8 @@
     <title>User Messages</title>
     <link rel="stylesheet" href="/style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -12,7 +14,7 @@
     <div class="main">
         <h3>Contact Messages</h3>
 
-        <table class="dataTable">
+        <table class="table table-striped">
             <thead>
             <tr>
                 <th class="sorting">
@@ -52,41 +54,43 @@
         </table>
 
         <!-- pagination -->
-        <div class="pagination">
-            <ul>
-                <li> <!--If user is not on Page 1, then left arrow is enabled-->
-                    <a th:if="${currentPage > 1}" th:href="@{'/displayMessages/page/' + ${currentPage - 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+        <nav aria-label="Pagination">
+            <ul class="pagination">
+                <li class="page-item"> <!--If user is not on Page 1, then left arrow is enabled-->
+                    <a class="page-link" th:if="${currentPage > 1}" th:href="@{'/displayMessages/page/' + ${currentPage - 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
                         <span class="fa fa-angle-double-left" aria-hidden="true"></span>
                     </a><!--otherwise, left arrow is disabled-->
-                    <a th:unless="${currentPage > 1}" class="not-allowed" disabled="">
+                    <a class="page-link not-allowed" th:unless="${currentPage > 1}" disabled="">
                         <span class="fa fa-angle-double-left" aria-hidden="true"></span>
                     </a>
                 </li>
 
                 <!--Taking info from backend. Based on number of pages, iterating through each page, where each page(beside current) is a link to some other page-->
                 <span th:each="i: ${#numbers.sequence(1, totalPages)}">
-                    <li>
-                        <a th:if="${currentPage != i}" th:href="@{'/displayMessages/page/' + ${i}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
-                        <a class="active" th:unless="${currentPage != i}">[[${i}]]</a>
+                    <li class="page-item">
+                        <a class="page-link" th:if="${currentPage != i}" th:href="@{'/displayMessages/page/' + ${i}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+                        <a class="page-link active" th:unless="${currentPage != i}">[[${i}]]</a>
                     </li>
                 </span>
 
-                <li><!--If user is not last page, then right arrow is enabled-->
-                    <a th:if="${currentPage < totalPages}" th:href="@{'/displayMessages/page/' + ${currentPage + 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
+                <li class="page-item"><!--If user is not last page, then right arrow is enabled-->
+                    <a class="page-link" th:if="${currentPage < totalPages}" th:href="@{'/displayMessages/page/' + ${currentPage + 1}+'?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">
                         <span class="fa fa-angle-double-right" aria-hidden="true"></span>
                     </a>
-                    <a th:unless="${currentPage < totalPages}" class="not-allowed" disabled="">
+                    <a class="page-link disabled" th:unless="${currentPage < totalPages}" disabled="">
                         <span class="fa fa-angle-double-right" aria-hidden="true"></span>
                     </a>
                 </li>
             </ul>
-        </div>
+        </nav>
         <!-- //pagination -->
 
-        <a th:href="@{/dashboard}"><button>BACK</button></a>
+        <a class="home-btn" th:href="@{/dashboard}">Back to Dashboard</a>
 
     </div>
 
     <div th:replace="footer :: footer"></div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+
 </body>
 </html>
