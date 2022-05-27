@@ -53,6 +53,11 @@ public class ApartmentController {
         if(authentication != null) {
             User user = userRepo.readByEmail(authentication.getName());
             modelAndView.addObject("user", user);
+            List<Integer> userApCodeList = new ArrayList<>();
+            for(Apartment ap : user.getApartments()){
+                userApCodeList.add(ap.getCode());
+            }
+            modelAndView.addObject("userApCodeList", userApCodeList);
         }
 
         apartments = apartmentService.findByFilters(apartmentDTO);
@@ -71,7 +76,7 @@ public class ApartmentController {
 
         if(authentication != null){
             User user = userRepo.readByEmail(authentication.getName());
-            Apartment apartmentToAdd = apartmentRepo.getById(id);
+            Apartment apartmentToAdd = apartmentRepo.getByCode(id);
             user.getApartments().add(apartmentToAdd);
             apartmentToAdd.getUsers().add(user);
             userRepo.save(user);
@@ -86,7 +91,7 @@ public class ApartmentController {
 
         if(authentication != null){
             User user = userRepo.readByEmail(authentication.getName());
-            Apartment apartmentToRemove = apartmentRepo.getById(id);
+            Apartment apartmentToRemove = apartmentRepo.getByCode(id);
             user.getApartments().remove(apartmentToRemove);
             apartmentToRemove.getUsers().remove(user);
             userRepo.save(user);

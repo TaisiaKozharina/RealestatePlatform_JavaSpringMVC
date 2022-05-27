@@ -5,63 +5,88 @@
     <title>User Profile</title>
     <link rel="stylesheet" href="/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <script src="https://kit.fontawesome.com/b6ee98f5fe.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 </head>
 <body>
 
     <div th:replace="header :: header"></div>
 
     <div class="main">
-        <ul>
 
-            <li role="alert" th:each="error : ${#fields.errors('profile.*')}" th:text="${error}" />
-        </ul>
+        <div class="container px-4">
+            <div class="row gx-5">
+                <div class="col-md-auto prof-card">
+                    <img class="prof-pic" th:src="@{/profile_img/Prof_Pic{picNum}.png(picNum=${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*8),1,0)})}">
+                    <h3 th:text="${profile.username}"></h3>
+                    <a class="home-btn" th:href="@{/dashboard}"><!--<button th:formaction="@{/dashboard}">-->Back to dashboard<!--</button>--></a>
+                    <!--"@{/img/{image}(image=${apartment.photo_url})}"-->
+                    <!--${#numbers.formatDecimal(T(java.lang.Math).floor(T(java.lang.Math).random()*10),1,0)}-->
+                </div>
+                <div class="col prof-body">
 
-        <form id="profile-edit" th:action="@{/updateProfile}" method="post" th:object="${profile}">
-            <h5>Personal Details</h5>
+                    <ul>
+                        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('profile.*')}" th:text="${error}" />
+                    </ul>
+                    <form id="profile-edit" th:action="@{/updateProfile}" method="post" th:object="${profile}">
+                        <h5>Edit Personal Details</h5>
 
-            <div class="form-floating">
-                <input class="form-control" type="text" th:field="*{username}" id="name"/>
-                <label for="name">Username:</label>
+                        <div class="form-floating">
+                            <input class="form-control" type="text" th:field="*{username}" id="name"/>
+                            <label for="name">Username:</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input class="form-control" type="text" th:field="*{mobile_number}" id="mobile_number"/>
+                            <label for="mobile_number">Mobile Number:</label>
+                        </div>
+
+                        <div class="form-floating">
+                            <input class="form-control" type="text" th:field="*{email}" id="email"/>
+                            <label for="email">Email:</label>
+                        </div>
+
+                        <button>Update Profile</button>
+                    </form>
+                    <hr style="border-top: dotted 3px #000;">
+                    <div>
+                        <h5>Your apartment Wishlist</h5>
+                        <div th:if="${user.apartments.empty}">
+                            <h6><i>Your Wishlist is empty...</i></h6>
+                            <a class="home-btn" th:href="@{/gallery}">Add some apartments!</a>
+                        </div>
+                        <div th:unless="${user.apartments.empty}">
+                            <div class="col" th:each="apartment: ${user.apartments}">
+                                <div class="profile card">
+                                    <img class="card-img-top" th:src="@{/img/{image}(image=${apartment.photo_url})}"
+                                         onerror="this.onerror=null;this.src='/img/default.jpg';">
+                                    <div class="card-body">
+                                        <h2 class="card-title"
+                                            th:utext="'&lt;strong&gt;' + ${apartment.city} + '&lt;/strong&gt;, ' + ${apartment.address}"></h2>
+                                        <div class="row">
+                                            <i class="col-md-auto bi bi-bounding-box"></i>
+                                            <h5 class="col card-text"
+                                                th:text="${#numbers.formatDecimal(apartment.size, 0, 1)} + ' square meters'"></h5>
+                                        </div>
+                                        <div class="row">
+                                            <i class="col-md-auto bi bi-info-circle-fill"></i>
+                                            <h5 class="col card-text text-truncate"
+                                                th:text="${apartment.description}"></h5>
+                                        </div>
+                                        <div class="row">
+                                            <i class="col-md-auto bi bi-currency-exchange"></i>
+                                            <h5 class="col card-text" th:text="${apartment.price} + ' €'"></h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <a class="home-btn" th:href="@{/gallery}">Add more apartments!</a>
+                        </div>
+                    </div>
+
+                </div>
+
             </div>
-
-            <div class="form-floating">
-                <input class="form-control" type="text" th:field="*{mobile_number}" id="mobile_number"/>
-                <label for="mobile_number">Mobile Number:</label>
-            </div>
-
-            <div class="form-floating">
-                <input class="form-control" type="text" th:field="*{email}" id="email"/>
-                <label for="email">Email:</label>
-            </div>
-
-            <button>Update Profile</button>
-            <a th:href="@{/dashboard}"><button th:formaction="@{/dashboard}">Back to dashboard</button></a>
-        </form>
-
-        <div>
-            <h3 th:text="${user.username} + ' WishList: '"></h3>
-            <table>
-                <thead>
-                <tr>
-                    <th>City</th>
-                    <th>Address</th>
-                    <th>Price</th>
-                    <th>Size</th>
-                    <th>Rooms</th>
-                    <th>Description</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="apartment: ${user.apartments}">
-                    <td th:text="${apartment.city}"></td>
-                    <td th:text="${apartment.address}"></td>
-                    <td th:text="${apartment.price}"></td>
-                    <td th:text="${apartment.size}"></td>
-                    <td th:text="${apartment.rooms}"></td>
-                    <td th:text="${apartment.description}"></td>
-                </tr>
-                </tbody>
-            </table>
         </div>
     </div>
 

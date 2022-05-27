@@ -98,34 +98,22 @@
                                     </a>
                                     <div class="card-body">
                                         <div th:if="${user}">
-                                            <div sec:authorize="isAuthenticated()"
-                                                 th:switch="${#lists.size(apartment.users)}">
-                                                <div th:case="'0'">
-                                                    <button class="wishlist-btn">
-                                                        <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
-                                                            <i class="fa-solid fa-heart"></i>
-                                                            Add to WishList
-                                                        </a>
-                                                    </button>
-                                                </div>
-                                                <div th:case="*">
-                                                    <div th:each="likedBy : ${apartment.users}">
-                                                        <button th:if="likedBy.userID == ${user.userID}"
-                                                                class="wishlist-btn">
-                                                            <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
-                                                                <i class="fa-solid fa-heart"></i>
-                                                                Add to WishList
-                                                            </a>
-                                                        </button>
-                                                        <button th:unless="likedBy.userID == ${user.userID}"
-                                                                class="unwishlist-btn">
-                                                            <a th:href="@{/removeApartFromWishlist(id=${apartment.code})}">
-                                                                <i class="fa-solid fa-heart-crack"></i>
-                                                                Remove from WishList
-                                                            </a>
-                                                        </button>
-                                                    </div>
-                                                </div>
+                                            <div th:if="${#lists.contains(userApCodeList, apartment.code)}">
+                                                <button class="unwishlist-btn">
+                                                    <a th:href="@{/removeApartFromWishlist(id=${apartment.code})}">
+                                                        <i class="fa-solid fa-heart-crack"></i>
+                                                        Remove from WishList
+                                                    </a>
+                                                </button>
+                                            </div>
+
+                                            <div th:unless="${#lists.contains(userApCodeList, apartment.code)}">
+                                                <button class="wishlist-btn">
+                                                    <a th:href="@{/addApartToWishlist(id=${apartment.code})}">
+                                                        <i class="fa-solid fa-heart"></i>
+                                                        Add to WishList
+                                                    </a>
+                                                </button>
                                             </div>
                                         </div>
 
@@ -176,7 +164,7 @@
                         </div>
                         <div class="toast-body">
                             Want to add this apartment to wishlist?
-                            <button type="button" class="btn btn-primary btn-sm"><a th:href="@{/login}">Log in</a></button>
+                            <button><a th:href="@{/login}">Log in</a></button>
                         </div>
                     </div>
                 </div>

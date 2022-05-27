@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("public") //for all paths that have /public before
+@RequestMapping("/public") //for all paths that have /public before
 public class PublicController {
 
         @Autowired

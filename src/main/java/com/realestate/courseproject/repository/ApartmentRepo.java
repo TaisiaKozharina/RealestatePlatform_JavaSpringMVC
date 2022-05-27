@@ -18,6 +18,7 @@ public interface ApartmentRepo extends JpaRepository<Apartment, Integer>, JpaSpe
 
     List<Apartment> findByOrderByCityDesc();
     List<Apartment> findByOrderByCity(); //by default ascending, but can mention "Asc" in the end explicitly.
+    Apartment getByCode(int ID);
 
     @Query("SELECT count(*) FROM Apartment")
     Integer countApartments();

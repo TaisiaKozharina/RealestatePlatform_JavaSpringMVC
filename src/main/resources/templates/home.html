@@ -22,7 +22,8 @@
     <div class="main">
         <h1>Hello, <span th:text="${username}"/>.</h1>
         <a class="home-btn" th:href="@{/gallery}">Browse available apartments!</a>
-        <a class="home-btn" th:href="@{/login}">Become one of us!</a>
+        <a sec:authorize="isAnonymous()" class="home-btn" th:href="@{/login}">Become one of us!</a>
+        <a sec:authorize="hasRole('ROLE_USER')" class="home-btn" th:href="@{/displayProfile}">Check your profile!</a>
         <a class="home-btn" th:href="@{/contact}">Contact us!</a>
     </div>
 
