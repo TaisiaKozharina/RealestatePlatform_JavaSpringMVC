@@ -4,37 +4,47 @@
     <meta charset="UTF-8">
     <title>Wishlist: Admin view</title>
     <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
 <body>
 
 <div th:replace="header :: header"></div>
 
 <div class="main">
-    <h3 th:text="${apartment.address} + ' apartment is wishlisted by:'"></h3>
-    <table>
-        <thead>
-        <tr>
-            <th>Username</th>
-            <th>Email</th>
-            <th>Mobile Number</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="user: ${apartment.users}">
-            <td th:text="${user.username}"></td>
-            <td th:text="${user.email}"></td>
-            <td th:text="${user.mobile_number}"></td>
-            <!--<td><a th:href="@{/admin/deleteStudentFromCourse(personId=${person.personId})}">DELETE</a></td>-->
-        </tr>
-        </tbody>
-    </table>
-    <a th:href="@{/admin/displayApartments}">
-        <button >BACK</button>
-    </a>
+
+    <h3 th:utext="'Apartment ' + '&lt;strong&gt;' + ${apartment.city} +', '+ ${apartment.address} + '&lt;/strong&gt;' + ' is wishlisted by:'"></h3>
+
+    <div th:if="${#lists.size(apartment.users)} == 0">
+        <p><i>No one has added this apartment to their Wishlist yet..</i></p>
+    </div>
+
+    <div th:unless="${#lists.size(apartment.users)} == 0">
+        <table class="table table-striped" id="userTable">
+            <thead>
+            <tr>
+                <th><strong>Username</strong></th>
+                <th><strong>Email</strong></th>
+                <th><strong>Mobile Number</strong></th>
+                <th><strong>Total wishlisted apartments</strong></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="user: ${apartment.users}">
+                <td th:text="${user.username}"></td>
+                <td th:text="${user.email}"></td>
+                <td th:text="${user.mobile_number}"></td>
+                <td th:text="${#lists.size(user.apartments)} + ' apartment(s)'"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="home-btn" th:href="@{/admin/displayApartments}">Back to apartment list</a>
 
 </div>
 
 <div th:replace="footer :: footer"></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 </body>
 </html>

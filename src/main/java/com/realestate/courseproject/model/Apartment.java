@@ -52,7 +52,7 @@ public class Apartment extends BaseEntity{
 
     private String photo_url; //URL of image
 
-    @ManyToMany(mappedBy = "apartments", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "apartments", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST) //Eager to enable joined queries. Persist because if deleting apartment, do not delete users also
     private Set<User> users = new HashSet<>();
 
     //private final boolean isActive;

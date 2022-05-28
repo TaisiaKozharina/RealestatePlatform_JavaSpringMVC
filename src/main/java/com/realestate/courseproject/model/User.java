@@ -41,8 +41,8 @@ public class User{
     @Column(name = "userid")
     private int userID;
 
-    @NotBlank(message="Name must not be blank")
-    @Size(min=3, message="Name must be at least 3 characters long")
+    @NotBlank(message="Username must not be blank")
+    @Size(min=3, message="Username must be at least 3 characters long")
     private String username;
 
     @NotBlank(message="Mobile number must not be blank")

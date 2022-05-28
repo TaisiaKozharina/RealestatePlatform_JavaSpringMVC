@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/style.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 </head>
 <body>
     <div th:replace="header :: header"></div>
@@ -14,27 +14,27 @@
     <div class="main">
         <h3>Contact Messages</h3>
 
-        <table class="table table-striped">
+        <table class="table table-striped" id="appTable">
             <thead>
             <tr>
                 <th class="sorting">
-                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">Name</a>
+                    <i class="bi bi-filter"></i><a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}"> Name</a>
                 </th>
 
                 <th class="sorting">
-                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=mobileNum&sortDir=' + ${reverseSortDir}}">Mobile Number</a>
+                    <i class="bi bi-filter"></i><a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=mobileNum&sortDir=' + ${reverseSortDir}}"> Mobile Number</a>
                 </th>
 
                 <th class="sorting">
-                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}">Email</a>
+                    <i class="bi bi-filter"></i><a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=email&sortDir=' + ${reverseSortDir}}"> Email</a>
                 </th>
 
                 <th class="sorting">
-                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=subject&sortDir=' + ${reverseSortDir}}">Subject</a>
+                    <i class="bi bi-filter"></i><a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=subject&sortDir=' + ${reverseSortDir}}"> Subject</a>
                 </th>
 
                 <th class="sorting">
-                    <a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=message&sortDir=' + ${reverseSortDir}}">Message</a>
+                    <i class="bi bi-filter"></i><a th:href="@{'/displayMessages/page/' + ${currentPage} + '?sortField=message&sortDir=' + ${reverseSortDir}}"> Message</a>
                 </th>
 
                 <th></th>
@@ -48,7 +48,7 @@
                 <td th:text="${msg.email}"></td>
                 <td th:text="${msg.subject}"></td>
                 <td th:text="${msg.message}"></td>
-                <td><a th:href="@{/closeMsg(id=${msg.contactID})}">CLOSE</a></td> <!--will add more params-->
+                <td><a class="delete-btn" th:href="@{/closeMsg(id=${msg.contactID})}">CLOSE</a></td>
             </tr>
             </tbody>
         </table>

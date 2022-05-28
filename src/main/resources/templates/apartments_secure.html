@@ -4,53 +4,113 @@
     <meta charset="UTF-8">
     <title>Secure Apartment List</title>
     <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.2/font/bootstrap-icons.css">
 </head>
 <body>
     <div th:replace="header :: header"></div>
 
     <div class="main">
-        <h3>Apartment Details</h3>
-        <button  data-bs-target="#addCourse">ADD APARTMENT</button>
 
-        <div>
+        <h3>List of active apartments</h3>
+
+
+        <a class="home-btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <i class="bi bi-patch-plus"></i></i> Add new apartment
+        </a>
+
+        <div class="modal" tabindex="-1" id="exampleModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Fill in information about the new apartment</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="addApp">
+                        <form th:action="@{/admin/addNewApartment}" method="post" th:object="${apartment}">
+
+                            <div class="form-floating container-fluid">
+                                <div class="row g-2">
+                                    <div class="form-floating col-md">
+                                        <input class="form-control" type="text" name="city" id="city" th:field="*{city}"
+                                               placeholder="Enter City">
+                                        <label for="city">City</label>
+                                    </div>
+
+                                    <div class="form-floating col-md">
+                                        <input class="form-control" type="text" name="address" id="address"
+                                              th:field="*{address}" placeholder="Enter Address">
+                                        <label for="address">Address</label>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2">
+                                    <div class="form-floating col-md">
+                                        <input class="form-control" type="number" name="price" id="price"
+                                               th:field="*{price}" placeholder="Enter Price">
+                                        <label for="price">price</label>
+                                    </div>
+
+                                    <div class="form-floating col-md">
+                                        <input class="form-control" type="number" name="size" id="size"
+                                               th:field="*{size}" placeholder="Enter Size">
+                                        <label for="size">Size</label>
+                                    </div>
+                                </div>
+
+                                <div class="row g-2">
+                                    <div class="form-floating col-md">
+                                        <input class="form-control" type="number" name="rooms" id="rooms"
+                                               th:field="*{rooms}" placeholder="Enter Rooms">
+                                        <label for="rooms">Rooms</label>
+                                    </div>
+
+                                    <div class="form-floating col-md">
+                                        <select class="form-select" id="type" th:field="*{type}">
+                                            <option th:each="apartType : ${apartTypes}"
+                                                    th:text="${apartType.name}"
+                                                    th:value="${apartType}">
+                                            </option>
+                                        </select>
+                                        <label for="type">Type</label>
+                                    </div>
+                                </div>
+
+                                <div class="form-floating row">
+                                    <input class="form-control" type="text" name="description" id="description"
+                                           th:field="*{description}" required placeholder="Enter Description"
+                                           style="height: 100px">
+                                    <label for="description">Description</label>
+                                </div>
+
+
+                                <button type="submit">Save</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+<!--        <div>
             <h5>Add New Apartment</h5>
             <button type="button"><span aria-hidden="true">&times;</span></button>
 
-        <form th:action="@{/admin/addNewApartment}" method="post" th:object="${apartment}">
 
-                <label for="city">City</label>
-                <input type="text" name="city" id="city" th:field="*{city}" required placeholder="Enter City">
-                <label for="address">Address</label>
-                <input type="text" name="address" id="address" th:field="*{address}" required placeholder="Enter Address">
-                <label for="price">price</label>
-                <input type="number" name="price" id="price" th:field="*{price}" required placeholder="Enter Price">
-                <label for="size">Size</label>
-                <input type="number" name="size" id="size" th:field="*{size}" required placeholder="Enter Size">
-                <label for="rooms">Rooms</label>
-                <input type="number" name="rooms" id="rooms" th:field="*{rooms}" required placeholder="Enter Rooms">
-                <label for="description">Description</label>
-                <input type="text" name="description" id="description" th:field="*{description}" required placeholder="Enter Description">
-                <label for="type">Type</label>
-                <select id="type" th:field="*{type}">
-                        <option th:each="apartType : ${apartTypes}"
-                                th:text="${apartType.name}"
-                                th:value="${apartType}">
-                        </option>
-                </select>
-                <button type="submit">Submit</button>
-        </form>
-        </div>
+        </div>-->
 
-        <table >
+        <table class="table table-striped" id="appTable">
             <thead>
             <tr>
-                <th>Code</th>
-                <th>City</th>
-                <th>Address</th>
-                <th>Price</th>
-                <th>Size</th>
-                <th>Rooms</th>
-                <th>Description</th>
+                <th><strong>Code</strong></th>
+                <th><strong>City</strong></th>
+                <th><strong>Address</strong></th>
+                <th><strong>Price</strong></th>
+                <th><strong>Size</strong></th>
+                <th><strong>Rooms</strong></th>
+                <th><strong>Description</strong></th>
+                <th><strong>Options</strong></th>
             </tr>
             </thead>
             <tbody>
@@ -59,19 +119,23 @@
                 <td th:text="${apartment.city}"></td>
                 <td th:text="${apartment.address}"></td>
                 <td th:text="${apartment.price}"></td>
-                <td th:text="${apartment.size}"></td>
+                <td th:text="${#numbers.formatDecimal(apartment.size, 0, 1)}"></td>
                 <td th:text="${apartment.rooms}"></td>
                 <td th:text="${apartment.description}"></td>
-                <td><a th:href="@{/admin/viewUsersWish(id=${apartment.code})}">VIEW USERS</a></td>
-                <td><a th:href="@{/admin/deleteApartment(id=${apartment.code})}">DELETE APARTMENT</a></td>
+                <td>
+                    <a class="view-btn" th:href="@{/admin/viewUsersWish(id=${apartment.code})}">VIEW USERS</a>
+                    <a class="delete-btn" th:href="@{/admin/deleteApartment(id=${apartment.code})}">DELETE</a>
+                </td>
             </tr>
             </tbody>
         </table>
 
-        <a th:href="@{/dashboard}"><button>BACK</button></a>
+        <a class="home-btn" th:href="@{/dashboard}">Back to dashboard</a>
     </div>
 
     <div th:replace="footer :: footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
 </body>
 </html>

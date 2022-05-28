@@ -263,7 +263,7 @@ height:100%;
 
 
 /*---------MESSAGES TABLE SORTING-----------*/
-table.dataTable > thead > tr > th:not(.sorting_disabled),
+t/*able.dataTable > thead > tr > th:not(.sorting_disabled),
 table.dataTable > thead > tr > td:not(.sorting_disabled) {
   padding-right: 30px;
 }
@@ -324,12 +324,18 @@ th > a {
 th > a:hover {
   color: #343434;
   text-decoration: underline;
-}
+}*/
 /*------------------------------------------*/
 
-/*-------------PAGINATION-------------------*/
+/*-------------PAGINATION (admin message page)-------------------*/
 .pagination a .active{
 color: red;
+}
+
+.sorting a{
+text-decoration: none;
+font-weight: bold;
+color: black;
 }
 /*-----------------------------------------*/
 
@@ -359,13 +365,20 @@ height: auto;
 width: auto;
 padding: 10px;
 border-radius: 5px;
+border: 2px solid #d66a04;
+background-color: #f7a728;
+transition-duration: 0.2s;
+}
+
+form button:hover,
+.toast-body button:hover{
+transform: scale(1.1) perspective(1px);
 background-color: #FA9E0D;
-border: 2px #191512;
 }
 
 .toast-body a{
-color: black;
-text-decoration: none;
+color: black !important;
+text-decoration: none !important;
 }
 
 /*#profile-edit{
@@ -448,3 +461,56 @@ overflow-y: scroll;
 margin: 30px;
 }
 /*----------------------------------------*/
+
+/*-------------ADMIN APARTMENT LIST-------------*/
+.modal-body#addApp{
+text-align: left;
+}
+
+#appTable td,
+#userTable td{
+letter-spacing: 0rem !important;
+}
+
+#appTable,
+#userTable{
+border-collapse: separate;
+}
+
+#appTable tr td:last-child {
+width: 1%;
+white-space: nowrap;
+text-align: center;
+}
+
+.view-btn,
+.delete-btn{
+margin: 10 15px;
+height: auto;
+width: auto;
+padding: 5px;
+border-radius: 5px;
+transition-duration: 0.2s;
+color: black !important;
+text-decoration: none !important;
+}
+
+.view-btn{
+border: 2px solid #3abd20;
+background-color: #68f04d;
+}
+
+.delete-btn{
+border: 2px solid #f27e4b;
+background-color: #f79c74;
+}
+
+.delete-btn:hover{
+background-color: #f78959;
+}
+
+.view-btn:hover{
+background-color: #45e825;
+}
+
+/*----------------------------------------------*/

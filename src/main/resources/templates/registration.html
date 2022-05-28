@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <title>Registration Page</title>
     <link rel="stylesheet" href="/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
 </head>
 <body>
     <script>
-        function validateForm (){
+       function validateForm (){
           if (document.getElementById('email').value === document.getElementById('confirmEmail').value &&
            document.getElementById('password').value === document.getElementById('confirmPassword').value )
             {
             return true;
             }
           else{
-          var list_item = document.createElement('li');
-          list_item.innerText = 'Test';
-          document.getElementById('alert').appendChild(list_item);
+          document.getElementById('pass-or-email').innerHTML = "Passwords or emails do not match";
           return false;
           }
         }
@@ -27,21 +27,47 @@
         <h3>Registration Form</h3>
         <div>
             <ul id="alert">
-                <li id="alertJS" />
+                <li role="alert" id="pass-or-email"></li>
                 <li role="alert" th:each="error : ${#fields.errors('user.*')}" th:text="${error}" />
             </ul>
             <form id="contact_form" th:action="@{/public/createUser}" method="post" th:object="${user}" onsubmit="return validateForm()">
-                <p class="text-uppercase">Personal Details</p>
-                <br/>
-                <input  type="text" th:field="*{username}" placeholder="Name"/>
-                <input type="text" th:field="*{mobile_number}" placeholder="Mobile Number"/>
-                <br/>
-                <input id="email" type="text" th:field="*{email}" placeholder="Email"/>
-                <input id="confirmEmail" type="text"  placeholder="Confirm Email"/>
-                <br/>
-                <input id="password" type="password" th:field="*{password}" placeholder="Password"/>
-                <input id="confirmPassword" type="password"  placeholder="Confirm Password"/>
-                <br/>
+
+                <div class="row">
+                    <div class="col form-floating">
+                        <input class="form-control" id="name" type="text" th:field="*{username}" placeholder="Username"/>
+                        <label for="name">Username</label>
+                    </div>
+
+                    <div class="col form-floating">
+                        <input class="form-control" id="mobileNum" type="text" th:field="*{mobile_number}" placeholder="Mobile Number"/>
+                        <label for="mobileNum">Mobile Number</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col form-floating">
+                        <input class="form-control" id="email" type="text" th:field="*{email}" placeholder="Email"/>
+                        <label for="email">Email</label>
+                    </div>
+
+                    <div class="col form-floating">
+                        <input class="form-control" id="confirmEmail" type="text" placeholder="Confirm Email"/>
+                        <label for="confirmEmail">Confirm Email</label>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col form-floating">
+                        <input class="form-control" id="password" type="password" th:field="*{password}" placeholder="Password"/>
+                        <label for="password">Secure password</label>
+                    </div>
+
+                    <div class="col form-floating">
+                        <input class="form-control" id="confirmPassword" type="password" placeholder="Confirm Password"/>
+                        <label for="confirmPassword">Confirm Password</label>
+                    </div>
+                </div>
+
                 <button>Register</button>
             </form>
         </div>

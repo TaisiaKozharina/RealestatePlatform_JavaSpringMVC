@@ -74,6 +74,7 @@ public class ApartmentController {
     @RequestMapping("/addApartToWishlist")
     public ModelAndView addApartmentToWishList(Model model, @RequestParam int id, Authentication authentication, HttpSession session) {
 
+        //ModelAndView modelAndView = new ModelAndView();
         if(authentication != null){
             User user = userRepo.readByEmail(authentication.getName());
             Apartment apartmentToAdd = apartmentRepo.getByCode(id);
