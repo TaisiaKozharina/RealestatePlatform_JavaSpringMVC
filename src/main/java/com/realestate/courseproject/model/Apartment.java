@@ -6,6 +6,9 @@ import lombok.Setter;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -38,16 +41,23 @@ public class Apartment extends BaseEntity{
         }
     }
 
+    @NotBlank(message="City field must not be blank")
     private String city;
 
+    @NotBlank(message="Address field must not be blank")
     private String address;
 
+    @Min(value = 1, message="Price field must not be zero")
     private double price;
 
+    @Min(value = 1, message="Size field must not be zero")
     private double size;
 
+    @Min(value = 1, message="Rooms field must not be zero")
     private int rooms;
 
+    @NotBlank(message="Description is mandatory")
+    @Size(min=20, message="Description must be at least 20 characters long")
     private String description;
 
     private String photo_url; //URL of image

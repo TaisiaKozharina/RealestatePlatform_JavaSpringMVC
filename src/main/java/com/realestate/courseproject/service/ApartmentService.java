@@ -1,7 +1,10 @@
 package com.realestate.courseproject.service;
 
+import com.realestate.courseproject.constants.GlobalConstants;
 import com.realestate.courseproject.dto.ApartmentDTO;
 import com.realestate.courseproject.model.Apartment;
+import com.realestate.courseproject.model.Role;
+import com.realestate.courseproject.model.User;
 import com.realestate.courseproject.repository.ApartmentRepo;
 import org.hibernate.internal.util.StringHelper;
 import org.springframework.beans.factory.annotation.Autowired;

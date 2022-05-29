@@ -18,6 +18,9 @@
         <a class="home-btn" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">
             <i class="bi bi-patch-plus"></i></i> Add new apartment
         </a>
+        <ul id="alert">
+            <li role="alert" th:text="${comment}"/>
+        </ul>
 
         <div class="modal" tabindex="-1" id="exampleModal">
             <div class="modal-dialog modal-lg">
