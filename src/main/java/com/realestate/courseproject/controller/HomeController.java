@@ -28,7 +28,6 @@ public class HomeController {
         }else{
             model.addAttribute("username", "Guest user");
         }
-
         model.addAttribute("apartCount", apartmentRepo.countApartments());
         model.addAttribute("userCount", userRepo.countUsers());
         return "home.html";

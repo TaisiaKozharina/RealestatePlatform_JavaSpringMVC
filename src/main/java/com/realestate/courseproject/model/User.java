@@ -11,6 +11,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -81,6 +82,6 @@ public class User{
             name = "wishlist",
             joinColumns = {@JoinColumn(name = "userid", referencedColumnName = "userID")},
             inverseJoinColumns =  {@JoinColumn(name = "code", referencedColumnName = "code")}) //The bridging table should not be created in code
-    private Set<Apartment> apartments = new HashSet<>();
+    private List<Apartment> apartments = new ArrayList<>();
 
 }

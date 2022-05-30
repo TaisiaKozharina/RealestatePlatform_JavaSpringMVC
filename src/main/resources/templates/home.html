@@ -8,9 +8,13 @@
 <body>
 
     <div th:replace="header :: header"></div>
+
     <div class="home-subheader">
         <div class="subheader-content">
-            <h1>REState is a real estate gallery application that also provides various services. We do our best to make the process of searching for ideal housing the most comfortable for you by providing consultations, regularly updating our database of apartments and staying on touch with our clients!</h1>
+            <h1>REState is a real estate gallery application that also provides various services.
+                We do our best to make the process of searching for ideal housing the most comfortable
+                for you by providing consultations, regularly updating our database of apartments
+                and staying on touch with our clients!</h1>
             <br/>
             <h2>Currently we have <span th:text="${apartCount}"/> unique apartment options!</h2>
             <h2>There are <span th:text="${userCount}"/> active users on our website! </h2>

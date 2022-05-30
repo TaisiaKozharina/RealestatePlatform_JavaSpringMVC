@@ -19,9 +19,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //http.csrf().disable() will disable 403 error - DO NOT USE
         //http.csrf().ignoringAntMatchers("/saveMsg") will disable csrf only on that action
-        //.ignoringAntMatchers("/h2-console/**") for H2 console
-        //.and().authorizeRequests().antMatchers("/h2-console/**").permitAll()  for H2 console
-        //Ignoring csrf for all public pages and saving msg, because no data to steal
+        //Ignoring csrf for all public pages and saving msg, because no data to steal from user
 
         http.csrf().ignoringAntMatchers("/saveMsg").ignoringAntMatchers("/public/**").and()
                 .authorizeRequests()
@@ -41,8 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .defaultSuccessUrl("/dashboard").failureUrl("/login?error=true").permitAll()
                 .and().logout().logoutSuccessUrl("/login?logout=true").invalidateHttpSession(true).permitAll()
                 .and().httpBasic();
-
-        //http.headers().frameOptions().disable(); //H2 console uses frameOptions, which is blocked by Spring. Disabling for testing. Do not ise in production (you will not use console in prod)
     }
 
     @Bean

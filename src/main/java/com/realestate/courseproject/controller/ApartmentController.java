@@ -13,6 +13,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.query.Param;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -45,6 +46,7 @@ public class ApartmentController {
     }
 
     /*@GetMapping("/gallery/{display}") : in method params add @PathVariable String display, */
+    @Transactional
     @GetMapping("/gallery")
     public ModelAndView displayApartments (Model model, ApartmentDTO apartmentDTO, Authentication authentication) {
 
@@ -71,6 +73,7 @@ public class ApartmentController {
         return modelAndView;
     }
 
+    @Transactional
     @RequestMapping("/addApartToWishlist")
     public ModelAndView addApartmentToWishList(Model model, @RequestParam int id, Authentication authentication, HttpSession session) {
 
