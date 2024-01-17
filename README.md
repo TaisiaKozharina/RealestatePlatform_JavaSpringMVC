@@ -1,4 +1,3 @@
-# OOP Course Project 2022
 ## Dynamic web application built with Java Spring MVC and Thymeleaf template engine.
 ## DBMS used in development: Microsoft SQL Server
 
